@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dcgqxcyfk2g7k"]
 
-[ext_resource type="Script" uid="uid://cmyxysyi5t56s" path="res://MainMenu/MainMenu.cs" id="1_cdkru"]
+[ext_resource type="Script" uid="uid://wqnfkpv81qm4" path="res://Scenes/MainMenu.cs" id="1_df05h"]
 [ext_resource type="Script" uid="uid://dir6r7mys57qn" path="res://UserInterface/NewGameMenuButton/NewGameMenuButton.cs" id="2_430ii"]
 [ext_resource type="PackedScene" uid="uid://ca8ywv5codsyu" path="res://UserInterface/NewGameButton/NewGameButton.tscn" id="2_c7oo3"]
 [ext_resource type="PackedScene" uid="uid://b4vm3g2tjstwm" path="res://UserInterface/OptionsMenuButton/OptionsMenuButton.tscn" id="3_kpx3y"]
@@ -19,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_cdkru")
+script = ExtResource("1_df05h")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
