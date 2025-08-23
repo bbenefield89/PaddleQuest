@@ -1,0 +1,28 @@
+<Project Sdk="Godot.NET.Sdk/4.4.1">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="gdUnit4.analyzers" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="gdUnit4.api" Version="5.0.0" />
+    <PackageReference Include="gdUnit4.test.adapter" Version="3.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Jira\Epics\MultiPlayerMVP\Features\addonlinemutliplayersupport\PCS01_Feature.md" />
+    <None Include="jira\epics\multiplayermvp\features\addonlinemutliplayersupport\PCS02_Basic_MultiPlayer_HostClient_System.md" />
+    <None Include="jira\epics\multiplayermvp\features\addonlinemutliplayersupport\PCS03_Create_UI_for_Hosting_and_Joining_Matches_via_IP.md" />
+    <None Include="jira\epics\multiplayermvp\features\addonlinemutliplayersupport\PCS04_Send_Paddle_Input_from_Client_to_Host.md" />
+    <None Include="jira\epics\multiplayermvp\features\addonlinemutliplayersupport\PCS05_Sync_from_Host_to_Client.md" />
+    <None Include="jira\epics\multiplayermvp\features\addonlinemutliplayersupport\PCS06_Logic_Works_Across_Network.md" />
+    <None Include="jira\epics\multiplayermvp\features\addonlinemutliplayersupport\PCS07_Handle_Disconnections.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Jira\Epics\MultiPlayerMVP\Features\AddOnlineMutliplayerSupport\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpfuat8j2eyp7"]
+
+[ext_resource type="PackedScene" uid="uid://c3xd4cyvk3cjw" path="res://UserInterface/MenuButtonBase/MenuButtonBase.tscn" id="1_qkpck"]
+[ext_resource type="Script" uid="uid://bus2vwsat80xo" path="res://UserInterface/QuitGameButton/QuitGameButton.cs" id="2_i3pdk"]
+
+[node name="QuitGameButton" instance=ExtResource("1_qkpck")]
+text = "Quit"
+script = ExtResource("2_i3pdk")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4vm3g2tjstwm"]
+
+[ext_resource type="PackedScene" uid="uid://c3xd4cyvk3cjw" path="res://UserInterface/MenuButtonBase/MenuButtonBase.tscn" id="1_0ruab"]
+[ext_resource type="Script" uid="uid://tmcf3e0ss35g" path="res://UserInterface/OptionsMenuButton/OptionsMenuButton.cs" id="2_wnav5"]
+
+[node name="OptionsMenuButton" instance=ExtResource("1_0ruab")]
+text = "Options"
+script = ExtResource("2_wnav5")

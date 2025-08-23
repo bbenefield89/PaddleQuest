@@ -1,0 +1,53 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot
+.import/
+export/*/
+*.import
+
+# Optional: keep these files tracked (uncomment if needed)
+#!project.godot
+#!icon.svg
+#!*.tscn
+#!*.gd
+#!*.cs
+
+# Mono / C# / .NET
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.cache
+*.csproj.user
+*.suo
+*.user
+*.userprefs
+
+# Visual Studio
+.vs/
+.vscode/
+
+# Godot Mono-specific
+data_*/        # Generated Mono data folders
+mono_crash.*   # Crash logs
+
+# System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+*.log
+
+# JetBrains (Rider, etc.)
+.idea/
+*.sln.iml
+
+# Godot export templates (optional)
+*.godot-export.cfg
+
+# Ignore Jira folder (optional, if local-only)
+Jira/

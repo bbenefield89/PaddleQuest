@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "PongCSharp": {
+      "commandName": "Project"
+    },
+    "PongCSharpDebugger": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\bsqua\\Downloads\\Godot_v4.4.1-stable_mono_win64\\Godot_v4.4.1-stable_mono_win64.exe",
+      "workingDirectory": "C:\\Users\\bsqua\\OneDrive\\Documents\\Godot\\CSharp\\pongcsharp",
+      "nativeDebugging": true
+    }
+  }
+}
