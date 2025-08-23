@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://c3vv5iybgesoe"]
 
-[ext_resource type="Script" uid="uid://dino4th2os6lw" path="res://Game/Game.cs" id="1_ln2h6"]
+[ext_resource type="Script" uid="uid://do26se8dhu8so" path="res://Scenes/Game.cs" id="1_3cx6b"]
 [ext_resource type="Script" uid="uid://cjhdvrl001lgu" path="res://Game/Ball/Ball.cs" id="1_rdw05"]
 [ext_resource type="PackedScene" uid="uid://rr06b20s7c3w" path="res://Game/Goal/Goal.tscn" id="2_gp3ee"]
 [ext_resource type="Script" uid="uid://cdmk4l27g0der" path="res://Game/Paddle/PaddleOne.cs" id="2_gwu2e"]
@@ -29,7 +29,7 @@ size = Vector2(14, 165)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3k6gv"]
 
 [node name="Game" type="Node" node_paths=PackedStringArray("_ball", "_scoreboard")]
-script = ExtResource("1_ln2h6")
+script = ExtResource("1_3cx6b")
 _ball = NodePath("Ball")
 _scoreboard = NodePath("UIRoot/Control/ScoreBoard")
 
