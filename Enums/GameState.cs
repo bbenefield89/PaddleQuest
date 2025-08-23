@@ -4,6 +4,7 @@ public enum GameState
 {
     Unknown,
     MainMenu,
-    Playing,
-    Paused
+    MatchOptionMenu,
+    Paused,
+    Playing
 }

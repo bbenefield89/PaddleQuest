@@ -11,9 +11,9 @@ public partial class SceneLoader : Node
         Instance = this;
     }
 
-    public void SwitchToScene(SceneName sceneName)
+    public void ChangeSceneTo(SceneName sceneName)
     {
-        var scenePath = sceneName.GetDisplayNameOrDefault();
+        var scenePath = sceneName.GetDisplayAttributeOrDefault(EnumDisplayAttribute.Name.ToString());
         var packedScene = ResourceLoader.Load<PackedScene>(scenePath);
 
         GetTree().ChangeSceneToPacked(packedScene);

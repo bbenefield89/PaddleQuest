@@ -27,10 +27,9 @@ public partial class Ball : CharacterBody2D
     private int _increaseBallSpeedEveryXSeconds = 1;
 
     // Lifecycles
-    public override void _EnterTree()
+    public override void _Ready()
     {
-        base._EnterTree();
-        //Subscribe();
+        base._Ready();
         _rng.Randomize();
         Reset();
     }
@@ -43,23 +42,7 @@ public partial class Ball : CharacterBody2D
         BounceBallOnCollision(collision);
     }
 
-    public override void _ExitTree()
-    {
-        base._ExitTree();
-        //Unsubscribe();
-    }
-
     // Setup
-    //private void Subscribe()
-    //{
-    //    GlobalEventBus.Instance?.BallEnteredGoal += GlobalEventBus_BallEnteredGoal;
-    //}
-
-    //private void Unsubscribe()
-    //{
-    //    GlobalEventBus.Instance?.BallEnteredGoal -= GlobalEventBus_BallEnteredGoal;
-    //}
-
     public void Reset()
     {
         ResetPosition();
@@ -82,12 +65,6 @@ public partial class Ball : CharacterBody2D
         float randomDirection() => _rng.RandfRange(-1, 1);
         var randomizedDirection = new Vector2(randomDirection(), randomDirection());
         _direction = randomizedDirection.Normalized();
-    }
-
-    // Event Handlers
-    private void GlobalEventBus_BallEnteredGoal(GoalSide _)
-    {
-        Reset();
     }
 
     // Ball Speed

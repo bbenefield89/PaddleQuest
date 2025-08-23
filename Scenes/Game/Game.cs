@@ -18,30 +18,25 @@ public partial class Game : Node
     private Scoreboard? _scoreboard;
 
     // Lifecycles
-    public override void _EnterTree()
-    {
-        base._EnterTree();
-        Subscribe();
-    }
-
     public override void _Ready()
     {
         base._Ready();
         Validate();
-        GlobalEventBus.Instance?.RaiseGameStarted();
+        GlobalEventBus.Instance!.BallEnteredGoal += Goal_OnBallEnteredGoal;
+        GlobalEventBus.Instance!.RaiseGameStarted();
     }
 
-    // Setup
-    private void Subscribe()
+    public override void _ExitTree()
     {
-        GlobalEventBus.Instance?.BallEnteredGoal += Goal_OnBallEnteredGoal;
+        base._ExitTree();
+        GlobalEventBus.Instance!.BallEnteredGoal -= Goal_OnBallEnteredGoal;
     }
 
     // Event Handlers
     private void Goal_OnBallEnteredGoal(GoalSide goalSide)
     {
-        _ball?.Reset();
-        _scoreboard?.IncreasePlayerScore(goalSide);
+        _ball!.Reset();
+        _scoreboard!.IncreasePlayerScore(goalSide);
     }
 
     // Validation
