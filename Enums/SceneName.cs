@@ -10,6 +10,9 @@ public enum SceneName
     [Display(Name = SceneNames.MainMenu)]
     MainMenu,
 
+    [Display(Name = SceneNames.MatchOptionsMenu)]
+    MatchOptionsMenu,
+
     [Display(Name = SceneNames.Game)]
     Game
 }

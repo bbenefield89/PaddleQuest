@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://h5mhfexs4r2v"]
+
+[ext_resource type="Script" uid="uid://coc2f5jgvp1ft" path="res://Scenes/MatchOptionsMenu/MatchOptionsMenu.cs" id="1_nycao"]
+
+[node name="MatchOptionsMenu" type="Control" node_paths=PackedStringArray("_matchOptionsTabContainer", "_startMatchButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nycao")
+_matchOptionsTabContainer = NodePath("PanelContainer/VBoxContainer/MatchOptionsTabContainer")
+_startMatchButton = NodePath("PanelContainer/VBoxContainer/StartMatchButton")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MatchOptionsTabContainer" type="TabContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Score Limit" type="Control" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScoreLimitContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit"]
+layout_mode = 0
+offset_right = 151.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/ScoreLimitContainer"]
+layout_mode = 2
+text = "Score Limit"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/ScoreLimitContainer"]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/ScoreLimitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="TimeLimitContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit"]
+layout_mode = 0
+offset_left = 187.0
+offset_right = 402.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/TimeLimitContainer"]
+layout_mode = 2
+text = "Time Limit (Seconds)"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/TimeLimitContainer"]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/TimeLimitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "60"
+
+[node name="StartMatchButton" type="Button" parent="PanelContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+text = "Start Match"

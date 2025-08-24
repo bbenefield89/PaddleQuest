@@ -9,6 +9,6 @@ public partial class MainMenu : Control
     public override void _Ready()
     {
         base._Ready();
-        GameStateManager.Instance?.ChangeState(GameState.MainMenu);
+        GameStateManager.Instance!.ChangeState(GameState.MainMenu);
     }
 }
