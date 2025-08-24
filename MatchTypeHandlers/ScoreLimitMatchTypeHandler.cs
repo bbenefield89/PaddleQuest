@@ -1,6 +1,7 @@
-using Godot.Collections;
 using PongCSharp.Autoloads;
+using PongCSharp.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static PongCSharp.Scenes.MatchOptionsMenu;
 
@@ -9,8 +10,6 @@ namespace PongCSharp.MatchTypeHandlers;
 public class ScoreLimitMatchTypeHandler(MatchSettings matchSettings) : IMatchTypeHandler
 {
     private DateTime _matchEndTime;
-
-    private Dictionary<int, int> _playerScoreManager = [];
 
     // Lifecycles
     public void Enter()
@@ -22,7 +21,7 @@ public class ScoreLimitMatchTypeHandler(MatchSettings matchSettings) : IMatchTyp
     public void Process()
     {
         if (DateTime.UtcNow >= _matchEndTime)
-            DetermineMatchWinnerByHighestScore();
+            GlobalEventBus.Instance?.RaiseMatchTimeLimitReached();
     }
 
     public void Exit()
@@ -30,28 +29,32 @@ public class ScoreLimitMatchTypeHandler(MatchSettings matchSettings) : IMatchTyp
 
     // Setup
     private void Subscribe()
-        => GlobalEventBus.Instance?.PlayerScoreChanged += GlobalEventBus_PlayerScoreChanged;
-
-    private void Unsubscribe()
-        => GlobalEventBus.Instance?.PlayerScoreChanged -= GlobalEventBus_PlayerScoreChanged;
-
-    // Event Handlers
-    private void GlobalEventBus_PlayerScoreChanged(int playerId, int totalScore)
     {
-        _playerScoreManager[playerId] = totalScore;
-
-        if (totalScore >= matchSettings.ScoreLimit)
-            DetermineMatchWinnerByHighestScore();
+        GlobalEventBus.Instance!.PlayerScoresUpdated += GlobalEventBus_PlayerScoresUpdated;
+        GlobalEventBus.Instance!.PlayerScoresFinalized += PlayerScoreManager_PlayerScoresFinalized;
     }
 
-    // Methods
-    private void DetermineMatchWinnerByHighestScore()
+    private void Unsubscribe()
     {
-        var highestScoringPlayerId = _playerScoreManager
-            .OrderByDescending(kv => kv.Value)
-            .FirstOrDefault()
-            .Key;
+        GlobalEventBus.Instance!.PlayerScoresUpdated -= GlobalEventBus_PlayerScoresUpdated;
+        GlobalEventBus.Instance!.PlayerScoresFinalized -= PlayerScoreManager_PlayerScoresFinalized;
+    }
 
-        GlobalEventBus.Instance?.RaiseVictoryConditionAchieved(highestScoringPlayerId + 1);
+    // Event Handlers
+    private void GlobalEventBus_PlayerScoresUpdated(Dictionary<GoalSide, int> playerScores)
+        => DetermineMatchWinnerByHighestScore(playerScores);
+
+    private void PlayerScoreManager_PlayerScoresFinalized(Dictionary<GoalSide, int> playerScores)
+        => DetermineMatchWinnerByHighestScore(playerScores);
+
+    // Methods
+    private void DetermineMatchWinnerByHighestScore(Dictionary<GoalSide, int> playerScores)
+    {
+        var playerIdToScore = playerScores
+            .OrderByDescending(kv => kv.Value)
+            .FirstOrDefault();
+
+        if (playerIdToScore.Value >= matchSettings.ScoreLimit)
+            GlobalEventBus.Instance?.RaiseVictoryConditionAchieved(playerIdToScore.Key);
     }
 }

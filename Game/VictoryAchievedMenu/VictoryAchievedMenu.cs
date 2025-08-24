@@ -1,5 +1,6 @@
 using Godot;
 using PongCSharp.Autoloads;
+using PongCSharp.Enums;
 using System.Diagnostics;
 
 namespace PongCSharp.Game.VictoryAchievedMenu;
@@ -44,10 +45,10 @@ public partial class VictoryAchievedMenu : PanelContainer
     }
 
     // Event Handlers
-    private void GlobalEventBus_VictoryConditionAchieved(int playerId)
+    private void GlobalEventBus_VictoryConditionAchieved(GoalSide goalSide)
     {
         Visible = true;
-        SetVictoryAchievedLabelText(playerId);
+        SetVictoryAchievedLabelText((int)goalSide);
     }
 
     private void GlobalEventBus_GameReset()

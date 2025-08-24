@@ -8,21 +8,14 @@ namespace PongCSharp.Game.Scoreboard;
 
 public partial class Scoreboard : Control
 {
-    private readonly List<Label> _playerScoreLabels = [];
-
-    private int[] _playerScores = new int[2];
+    [Export]
+    private Label?[] _playerScoreLabels = [];
 
     // Lifecycles
-    public override void _EnterTree()
-    {
-        base._EnterTree();
-        Subscribe();
-        InitializePlayerScoreLabels();
-    }
-
     public override void _Ready()
     {
         base._Ready();
+        Subscribe();
         Validate();
     }
 
@@ -33,64 +26,26 @@ public partial class Scoreboard : Control
     }
 
     // Setup
-    private void InitializePlayerScoreLabels()
-    {
-        foreach (var child in GetChildren())
-        {
-            if (child is not Label)
-            {
-                // Child is is not a Label type
-                Debugger.Break();
-            }
-
-            _playerScoreLabels.Add((Label)child);
-        }
-    }
-
     private void Subscribe()
-    {
-        GlobalEventBus.Instance?.GameReset += GlobalEventBus_GameReset;
-    }
+        => GlobalEventBus.Instance?.GameReset += GlobalEventBus_GameReset;
 
     private void Unsubscribe()
-    {
-        GlobalEventBus.Instance?.GameReset -= GlobalEventBus_GameReset;
-    }
+        => GlobalEventBus.Instance?.GameReset -= GlobalEventBus_GameReset;
 
     // Event Handlers
-    private void GlobalEventBus_GameReset()
-    {
-        ResetPlayerScores();
-    }
+    private void GlobalEventBus_GameReset() => ResetPlayerScores();
 
     // Methods
-    public void IncreasePlayerScore(GoalSide goalSide)
+    public void UpdateScores(Dictionary<GoalSide, int> playerIdToScore)
     {
-        var scoringPlayerId = DetermineWhichPlayerScored(goalSide);
-        AddScoreToPlayer(scoringPlayerId);
-    }
-
-    private int DetermineWhichPlayerScored(GoalSide goalSide)
-    {
-        var playerId = goalSide == GoalSide.Left ? 1 : 0;
-        return playerId;
-    }
-
-    private void AddScoreToPlayer(int scoringPlayerId)
-    {
-        _playerScores[scoringPlayerId] += 1;
-        _playerScoreLabels[scoringPlayerId].Text = _playerScores[scoringPlayerId].ToString();
-        GlobalEventBus.Instance?.RaisePlayerScoreChanged(scoringPlayerId, _playerScores[scoringPlayerId]);
+        foreach (var (playerId, score) in playerIdToScore)
+            _playerScoreLabels[(int)playerId]!.Text = score.ToString();
     }
 
     private void ResetPlayerScores()
     {
-        _playerScores = new int[2];
-        
         foreach (var label in _playerScoreLabels)
-        {
-            label.Text = 0.ToString();
-        }
+            label!.Text = 0.ToString();
     }
 
     // Validation
@@ -98,17 +53,15 @@ public partial class Scoreboard : Control
     {
         var isInvalid = false;
 
-        if (_playerScoreLabels.Count < 2)
+        if (_playerScoreLabels.Length < 2)
         {
             // _playerScoreLabels does not have enough players
             isInvalid = true;
             Debugger.Break();
-            GD.PushError($"{_playerScoreLabels} does not have enough players\nPlayerCount: {_playerScoreLabels.Count}");
+            GD.PushError($"{_playerScoreLabels} does not have enough players\nPlayerCount: {_playerScoreLabels.Length}");
         }
 
         if (isInvalid)
-        {
             GetTree().Quit();
-        }
     }
 }

@@ -1,18 +1,23 @@
 using Godot;
 using PongCSharp.Enums;
 using PongCSharp.Autoloads;
+using System.Collections.Generic;
 
 namespace PongCSharp.Game;
 
 public partial class PlayerScoreManager : Node
 {
     // Fields
-    private int[] _playerScores = new int[2];
+    private Dictionary<GoalSide, int> _playerScores = new()
+    {
+        [GoalSide.Left] = 0,
+        [GoalSide.Right] = 0,
+    };
 
     // Lifecycles
-    public override void _EnterTree()
+    public override void _Ready()
     {
-        base._EnterTree();
+        base._Ready();
         Subscribe();
     }
 
@@ -25,43 +30,45 @@ public partial class PlayerScoreManager : Node
     // Setup
     private void Subscribe()
     {
-        GlobalEventBus.Instance?.BallEnteredGoal += GlobalEventBus_BallEnteredGoal;
-        GlobalEventBus.Instance?.GameReset += GlobalEventBus_GameReset;
+        GlobalEventBus.Instance!.GameReset += GlobalEventBus_GameReset;
+        GlobalEventBus.Instance!.MatchTimeLimitReached += ScoreLimitMatchTypeHandler_OnMatchTimeLimitReached;
     }
 
     private void Unsubscribe()
     {
-        GlobalEventBus.Instance?.BallEnteredGoal -= GlobalEventBus_BallEnteredGoal;
-        GlobalEventBus.Instance?.GameReset -= GlobalEventBus_GameReset;
+        GlobalEventBus.Instance!.GameReset -= GlobalEventBus_GameReset;
+        GlobalEventBus.Instance!.MatchTimeLimitReached -= ScoreLimitMatchTypeHandler_OnMatchTimeLimitReached;
     }
 
     // Event Handlers
-    private void GlobalEventBus_BallEnteredGoal(GoalSide goalSide)
+    private void GlobalEventBus_GameReset() => ResetPlayerScores();
+
+    private void ScoreLimitMatchTypeHandler_OnMatchTimeLimitReached()
+        => GlobalEventBus.Instance!.RaisePlayerScoresFinalized(_playerScores);
+
+    // Methods
+    public void IncreasePlayerScore(GoalSide goalSide)
     {
         var scoringPlayerId = DetermineWhichPlayerScored(goalSide);
         AddScoreToPlayerByPlayerId(scoringPlayerId);
+        GlobalEventBus.Instance!.RaisePlayerScoresUpdated(_playerScores);
     }
 
-    private void GlobalEventBus_GameReset()
+    private GoalSide DetermineWhichPlayerScored(GoalSide goalSide)
     {
-        ResetPlayerScores();
-    }
+        var playerId = goalSide == GoalSide.Left
+            ? GoalSide.Right
+            : GoalSide.Left;
 
-    // Methods
-    private int DetermineWhichPlayerScored(GoalSide goalSide)
-    {
-        var playerId = goalSide == GoalSide.Left ? 1 : 0;
         return playerId;
     }
 
-    private void AddScoreToPlayerByPlayerId(int scoringPlayerId)
-    {
-        _playerScores[scoringPlayerId] += 1;
-        GlobalEventBus.Instance?.RaisePlayerScoreChanged(scoringPlayerId, _playerScores[scoringPlayerId]);
-    }
+    private void AddScoreToPlayerByPlayerId(GoalSide goalSide)
+        => _playerScores[goalSide] += 1;
 
     private void ResetPlayerScores()
     {
-        _playerScores = new int[2];
+        foreach (var key in _playerScores.Keys)
+            _playerScores[key] = 0;
     }
 }

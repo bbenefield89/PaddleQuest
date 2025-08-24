@@ -1,8 +1,10 @@
 using Godot;
 using PongCSharp.Autoloads;
 using PongCSharp.Enums;
+using PongCSharp.Game;
 using PongCSharp.Game.Ball;
 using PongCSharp.Game.Scoreboard;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -17,12 +19,19 @@ public partial class Game : Node
     [Export]
     private Scoreboard? _scoreboard;
 
+    // Services
+    [Export]
+    private PlayerScoreManager? _playerScoreManager;
+
     // Lifecycles
     public override void _Ready()
     {
         base._Ready();
         Validate();
+
         GlobalEventBus.Instance!.BallEnteredGoal += Goal_OnBallEnteredGoal;
+        GlobalEventBus.Instance!.PlayerScoresUpdated += PlayerScoreManager_OnPlayerScoresUpdated;
+
         GlobalEventBus.Instance!.RaiseGameStarted();
     }
 
@@ -30,13 +39,19 @@ public partial class Game : Node
     {
         base._ExitTree();
         GlobalEventBus.Instance!.BallEnteredGoal -= Goal_OnBallEnteredGoal;
+        GlobalEventBus.Instance!.PlayerScoresUpdated -= PlayerScoreManager_OnPlayerScoresUpdated;
     }
 
     // Event Handlers
     private void Goal_OnBallEnteredGoal(GoalSide goalSide)
     {
         _ball!.Reset();
-        _scoreboard!.IncreasePlayerScore(goalSide);
+        _playerScoreManager!.IncreasePlayerScore(goalSide);
+    }
+
+    private void PlayerScoreManager_OnPlayerScoresUpdated(Dictionary<GoalSide, int> playerScores)
+    {
+        _scoreboard!.UpdateScores(playerScores);
     }
 
     // Validation
@@ -49,6 +64,9 @@ public partial class Game : Node
 
         if (_scoreboard is null)
             errors.Add($"{nameof(_scoreboard)} is null");
+
+        if (_playerScoreManager is null)
+            errors.Add($"{nameof(_playerScoreManager)} is null");
 
         if (errors.Count > 0)
         {
