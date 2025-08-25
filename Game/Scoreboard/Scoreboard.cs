@@ -8,8 +8,16 @@ namespace PongCSharp.Game.Scoreboard;
 
 public partial class Scoreboard : Control
 {
+    // Exports
     [Export]
     private Label?[] _playerScoreLabels = [];
+
+    // Fields
+    private readonly Dictionary<GoalSide, int> _goalSideToPlayerScoreLabelIndex = new()
+    {
+        { GoalSide.Left, 0 },
+        { GoalSide.Right, 1 }
+    };
 
     // Lifecycles
     public override void _Ready()
@@ -36,10 +44,11 @@ public partial class Scoreboard : Control
     private void GlobalEventBus_GameReset() => ResetPlayerScores();
 
     // Methods
-    public void UpdateScores(Dictionary<GoalSide, int> playerIdToScore)
+    public void UpdateScores(Dictionary<GoalSide, int> goalSideToPlayerScore)
     {
-        foreach (var (playerId, score) in playerIdToScore)
-            _playerScoreLabels[(int)playerId]!.Text = score.ToString();
+        foreach (var (goalSide, playerScore) in goalSideToPlayerScore)
+            if (_goalSideToPlayerScoreLabelIndex.TryGetValue(goalSide, out var index))
+                _playerScoreLabels[index]!.Text = playerScore.ToString();
     }
 
     private void ResetPlayerScores()

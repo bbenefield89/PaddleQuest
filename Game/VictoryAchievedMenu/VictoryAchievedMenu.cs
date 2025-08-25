@@ -32,25 +32,11 @@ public partial class VictoryAchievedMenu : PanelContainer
     }
 
     // Setup
-    private void Subscribe()
-    {
-        GlobalEventBus.Instance?.VictoryConditionAchieved += GlobalEventBus_VictoryConditionAchieved;
-        GlobalEventBus.Instance?.GameReset += GlobalEventBus_GameReset;
-    }
+    private void Subscribe() => GlobalEventBus.Instance?.GameReset += GlobalEventBus_GameReset;
 
-    private void Unsubscribe()
-    {
-        GlobalEventBus.Instance?.VictoryConditionAchieved -= GlobalEventBus_VictoryConditionAchieved;
-        GlobalEventBus.Instance?.GameReset -= GlobalEventBus_GameReset;
-    }
+    private void Unsubscribe() => GlobalEventBus.Instance?.GameReset -= GlobalEventBus_GameReset;
 
     // Event Handlers
-    private void GlobalEventBus_VictoryConditionAchieved(GoalSide goalSide)
-    {
-        Visible = true;
-        SetVictoryAchievedLabelText((int)goalSide);
-    }
-
     private void GlobalEventBus_GameReset()
     {
         Visible = false;
@@ -58,6 +44,12 @@ public partial class VictoryAchievedMenu : PanelContainer
     }
 
     // Methods
+    public void Show(GoalSide winningGoalSide)
+    {
+        Visible = true;
+        SetVictoryAchievedLabelText((int)winningGoalSide);
+    }
+
     private void SetVictoryAchievedLabelText(int playerId)
     {
         var winningText = _victoryAchievedMenuLabel?.Text.Replace("{0}", playerId.ToString());

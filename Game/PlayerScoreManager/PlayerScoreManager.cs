@@ -1,6 +1,6 @@
 using Godot;
-using PongCSharp.Enums;
 using PongCSharp.Autoloads;
+using PongCSharp.Enums;
 using System.Collections.Generic;
 
 namespace PongCSharp.Game;
@@ -8,7 +8,7 @@ namespace PongCSharp.Game;
 public partial class PlayerScoreManager : Node
 {
     // Fields
-    private Dictionary<GoalSide, int> _playerScores = new()
+    private Dictionary<GoalSide, int> _goalSideToPlayerScore = new()
     {
         [GoalSide.Left] = 0,
         [GoalSide.Right] = 0,
@@ -44,31 +44,31 @@ public partial class PlayerScoreManager : Node
     private void GlobalEventBus_GameReset() => ResetPlayerScores();
 
     private void ScoreLimitMatchTypeHandler_OnMatchTimeLimitReached()
-        => GlobalEventBus.Instance!.RaisePlayerScoresFinalized(_playerScores);
+        => GlobalEventBus.Instance!.RaisePlayerScoresFinalized(_goalSideToPlayerScore);
 
     // Methods
-    public void IncreasePlayerScore(GoalSide goalSide)
+    public void IncreasePlayerScore(GoalSide sideScoredUpon)
     {
-        var scoringPlayerId = DetermineWhichPlayerScored(goalSide);
-        AddScoreToPlayerByPlayerId(scoringPlayerId);
-        GlobalEventBus.Instance!.RaisePlayerScoresUpdated(_playerScores);
+        var scoringSide = DetermineWhichPlayerScored(sideScoredUpon);
+        AddScoreToScoringSide(scoringSide);
+        GlobalEventBus.Instance!.RaisePlayerScoresUpdated(_goalSideToPlayerScore);
     }
 
     private GoalSide DetermineWhichPlayerScored(GoalSide goalSide)
     {
-        var playerId = goalSide == GoalSide.Left
+        var scoringSide = goalSide == GoalSide.Left
             ? GoalSide.Right
             : GoalSide.Left;
 
-        return playerId;
+        return scoringSide;
     }
 
-    private void AddScoreToPlayerByPlayerId(GoalSide goalSide)
-        => _playerScores[goalSide] += 1;
+    private void AddScoreToScoringSide(GoalSide scoringSide)
+        => _goalSideToPlayerScore[scoringSide] += 1;
 
     private void ResetPlayerScores()
     {
-        foreach (var key in _playerScores.Keys)
-            _playerScores[key] = 0;
+        foreach (var goalSide in _goalSideToPlayerScore.Keys)
+            _goalSideToPlayerScore[goalSide] = 0;
     }
 }
