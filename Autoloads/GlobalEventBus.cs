@@ -1,6 +1,7 @@
 using Godot;
 using PongCSharp.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace PongCSharp.Autoloads;
 
@@ -29,9 +30,24 @@ public partial class GlobalEventBus : Node
     public void RaisePlayerScoreChanged(int playerId, int totalScore)
         => PlayerScoreChanged?.Invoke(playerId, totalScore);
 
+    // PlayerScoresFinalized
+    public event Action<Dictionary<GoalSide, int>>? PlayerScoresFinalized;
+    public void RaisePlayerScoresFinalized(Dictionary<GoalSide, int> playerScores)
+        => PlayerScoresFinalized?.Invoke(playerScores);
+
+    // PlayerScoresUpdated
+    public event Action<Dictionary<GoalSide, int>>? PlayerScoresUpdated;
+    public void RaisePlayerScoresUpdated(Dictionary<GoalSide, int> playerScores)
+        => PlayerScoresUpdated?.Invoke(playerScores);
+
+    // MatchTimeLimitReached
+    public event Action? MatchTimeLimitReached;
+    public void RaiseMatchTimeLimitReached()
+        => MatchTimeLimitReached?.Invoke();
+
     // VictoryConditionAchieved
-    public event Action<int>? VictoryConditionAchieved;
-    public void RaiseVictoryConditionAchieved(int playerId)
+    public event Action<GoalSide>? VictoryConditionAchieved;
+    public void RaiseVictoryConditionAchieved(GoalSide playerId)
         => VictoryConditionAchieved?.Invoke(playerId);
 
     // Constructors

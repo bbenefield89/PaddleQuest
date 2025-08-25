@@ -27,9 +27,6 @@ public partial class Goal : Area2D
     private void Validate()
     {
         if (_goalSide == GoalSide.Unknown)
-        {
-            // _goalSide has not been set
             Debugger.Break();
-        }
     }
 }

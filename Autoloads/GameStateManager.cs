@@ -83,17 +83,11 @@ public partial class GameStateManager : Node
 
     // Event Handlers
     private void GlobalEventBus_GameStarted()
-    {
-        Instance?.ChangeState(GameState.Playing);
-    }
+        => Instance?.ChangeState(GameState.Playing);
 
     private void GlobalEventBus_GameReset()
-    {
-        Instance?.ChangeState(GameState.Playing);
-    }
+        => Instance?.ChangeState(GameState.Playing);
 
-    private void GlobalEventBus_VictoryConditionAchieved(int _)
-    {
-        Instance?.ChangeState(GameState.Paused);
-    }
+    private void GlobalEventBus_VictoryConditionAchieved(GoalSide _)
+        => Instance?.ChangeState(GameState.Paused);
 }
