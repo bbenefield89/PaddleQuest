@@ -71,14 +71,12 @@ public partial class GameStateManager : Node
     {
         GlobalEventBus.Instance?.GameStarted += GlobalEventBus_GameStarted;
         GlobalEventBus.Instance?.GameReset += GlobalEventBus_GameReset;
-        GlobalEventBus.Instance?.VictoryConditionAchieved += GlobalEventBus_VictoryConditionAchieved;
     }
 
     private void Unsubscribe()
     {
         GlobalEventBus.Instance?.GameStarted -= GlobalEventBus_GameStarted;
         GlobalEventBus.Instance?.GameReset -= GlobalEventBus_GameReset;
-        GlobalEventBus.Instance?.VictoryConditionAchieved -= GlobalEventBus_VictoryConditionAchieved;
     }
 
     // Event Handlers
@@ -87,7 +85,4 @@ public partial class GameStateManager : Node
 
     private void GlobalEventBus_GameReset()
         => Instance?.ChangeState(GameState.Playing);
-
-    private void GlobalEventBus_VictoryConditionAchieved(GoalSide _)
-        => Instance?.ChangeState(GameState.Paused);
 }

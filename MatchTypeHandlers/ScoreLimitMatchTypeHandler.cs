@@ -41,20 +41,31 @@ public class ScoreLimitMatchTypeHandler(MatchSettings matchSettings) : IMatchTyp
     }
 
     // Event Handlers
-    private void GlobalEventBus_PlayerScoresUpdated(Dictionary<GoalSide, int> playerScores)
-        => DetermineMatchWinnerByHighestScore(playerScores);
+    private void GlobalEventBus_PlayerScoresUpdated(
+        Dictionary<GoalSide, int> goalSideToPlayerScore
+    )
+    {
+        if (goalSideToPlayerScore.Any(kv => kv.Value >= matchSettings.ScoreLimit))
+            DetermineMatchWinnerByHighestScore(goalSideToPlayerScore);
+    }
 
-    private void PlayerScoreManager_PlayerScoresFinalized(Dictionary<GoalSide, int> playerScores)
-        => DetermineMatchWinnerByHighestScore(playerScores);
+    private void PlayerScoreManager_PlayerScoresFinalized(
+        Dictionary<GoalSide, int> goalSideToPlayerScore
+    )
+        => DetermineMatchWinnerByHighestScore(goalSideToPlayerScore);
 
     // Methods
-    private void DetermineMatchWinnerByHighestScore(Dictionary<GoalSide, int> playerScores)
+    private void DetermineMatchWinnerByHighestScore(
+        Dictionary<GoalSide, int> goalSideToPlayerScore
+    )
     {
-        var playerIdToScore = playerScores
+        var highestScoringGoalSide = goalSideToPlayerScore
             .OrderByDescending(kv => kv.Value)
             .FirstOrDefault();
 
-        if (playerIdToScore.Value >= matchSettings.ScoreLimit)
-            GlobalEventBus.Instance?.RaiseVictoryConditionAchieved(playerIdToScore.Key);
+        GlobalEventBus.Instance?
+            .RaiseVictoryConditionAchieved(highestScoringGoalSide.Key);
+
+        GameStateManager.Instance?.ChangeState(GameState.Paused);
     }
 }
