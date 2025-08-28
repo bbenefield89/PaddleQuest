@@ -1,8 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://c3vv5iybgesoe"]
+[gd_scene load_steps=19 format=3 uid="uid://c3vv5iybgesoe"]
 
 [ext_resource type="Script" uid="uid://do26se8dhu8so" path="res://Scenes/Game/Game.cs" id="1_3cx6b"]
 [ext_resource type="Script" uid="uid://cjhdvrl001lgu" path="res://Game/Ball/Ball.cs" id="1_rdw05"]
-[ext_resource type="Script" uid="uid://dypwt4wobg4x7" path="res://Game/PlayerScoreManager/PlayerScoreManager.cs" id="2_bsqcq"]
 [ext_resource type="PackedScene" uid="uid://rr06b20s7c3w" path="res://Game/Goal/Goal.tscn" id="2_gp3ee"]
 [ext_resource type="Script" uid="uid://cdmk4l27g0der" path="res://Game/Paddle/PaddleOne.cs" id="2_gwu2e"]
 [ext_resource type="Script" uid="uid://d08p6pxqghq8k" path="res://Game/Paddle/PaddleTwo.cs" id="3_xbxml"]
@@ -29,17 +28,11 @@ size = Vector2(14, 165)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3k6gv"]
 
-[node name="Game" type="Node" node_paths=PackedStringArray("_ball", "_scoreboard", "_victoryAchievedMenu", "_playerScoreManager")]
+[node name="Game" type="Node" node_paths=PackedStringArray("_ball", "_scoreboard", "_victoryAchievedMenu")]
 script = ExtResource("1_3cx6b")
 _ball = NodePath("Ball")
 _scoreboard = NodePath("UIRoot/Control/ScoreBoard")
 _victoryAchievedMenu = NodePath("UIRoot/Control/VictoryAchievedMenu")
-_playerScoreManager = NodePath("Services/PlayerScoreManager")
-
-[node name="Services" type="Node" parent="."]
-
-[node name="PlayerScoreManager" type="Node" parent="Services"]
-script = ExtResource("2_bsqcq")
 
 [node name="Arena" type="Node" parent="."]
 

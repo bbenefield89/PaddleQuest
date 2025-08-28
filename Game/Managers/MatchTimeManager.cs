@@ -1,7 +1,7 @@
 using PongCSharp.Autoloads;
 using PongCSharp.Models;
 
-namespace PongCSharp.Game.MatchTimeManager;
+namespace PongCSharp.Game.Managers;
 
 public class MatchTimeManager(MatchSettings matchSettings)
 {

@@ -1,6 +1,6 @@
 using PongCSharp.Autoloads;
 using PongCSharp.Enums;
-using PongCSharp.Game.MatchTimeManager;
+using PongCSharp.Game.Managers;
 using PongCSharp.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,14 @@ public class ScoreLimitMatchTypeHandler(MatchSettings matchSettings) : IMatchTyp
 {
     private readonly MatchTimeManager _matchTimeManager = new(matchSettings);
 
+    private readonly PlayerScoreManager _playerScoreManager = new(matchSettings);
+
     // Lifecycles
     public void Enter()
     {
         Subscribe();
         _matchTimeManager.Ready();
+        _playerScoreManager.Ready();
     }
 
     public void Process(double delta) => _matchTimeManager.Process(delta);
@@ -24,6 +27,7 @@ public class ScoreLimitMatchTypeHandler(MatchSettings matchSettings) : IMatchTyp
     {
         Unsubscribe();
         _matchTimeManager.Exit();
+        _playerScoreManager.Exit();
     }
 
     // Setup
