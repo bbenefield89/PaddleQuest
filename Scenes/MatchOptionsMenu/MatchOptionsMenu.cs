@@ -1,6 +1,7 @@
 using Godot;
 using PongCSharp.Autoloads;
 using PongCSharp.Enums;
+using PongCSharp.Models;
 
 namespace PongCSharp.Scenes;
 
@@ -19,8 +20,7 @@ public partial class MatchOptionsMenu : Control
         Subscribe();
     }
 
-    private void Subscribe()
-        => _startMatchButton!.ButtonUp += StartMatchButton_OnButtonUp;
+    private void Subscribe() => _startMatchButton!.ButtonUp += StartMatchButton_OnButtonUp;
 
     private void StartMatchButton_OnButtonUp()
     {
@@ -33,14 +33,7 @@ public partial class MatchOptionsMenu : Control
             TimeLimit = currentTabChildren[1].GetNode<TextEdit>("TextEdit").Text.ToInt()
         };
 
-        MatchTypeManager.Instance!.ChangeMatchType(matchSettings);
+        MatchTypeManager.Instance!.LoadMatchType(matchSettings);
         SceneLoader.Instance!.ChangeSceneTo(SceneName.Game);
-    }
-
-    public class MatchSettings
-    {
-        public MatchType MatchType { get; set; }
-        public int ScoreLimit { get; set; }
-        public int TimeLimit { get; set; }
     }
 }

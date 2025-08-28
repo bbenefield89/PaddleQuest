@@ -48,6 +48,12 @@ public partial class Game : Node
         GlobalEventBus.Instance!.BallEnteredGoal += Goal_OnBallEnteredGoal;
         GlobalEventBus.Instance!.PlayerScoresUpdated += PlayerScoreManager_OnPlayerScoresUpdated;
         GlobalEventBus.Instance!.VictoryConditionAchieved += MatchTypeHandler_OnVictoryConditionAchieved;
+        GlobalEventBus.Instance!.GameReset += PlayAgainButton_GameReset;
+    }
+
+    private void PlayAgainButton_GameReset()
+    {
+        _ball?.Reset();
     }
 
     private void Unsubscribe()
@@ -55,6 +61,7 @@ public partial class Game : Node
         GlobalEventBus.Instance!.BallEnteredGoal -= Goal_OnBallEnteredGoal;
         GlobalEventBus.Instance!.PlayerScoresUpdated -= PlayerScoreManager_OnPlayerScoresUpdated;
         GlobalEventBus.Instance!.VictoryConditionAchieved -= MatchTypeHandler_OnVictoryConditionAchieved;
+        GlobalEventBus.Instance!.GameReset -= PlayAgainButton_GameReset;
     }
 
     // Event Handlers

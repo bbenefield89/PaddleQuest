@@ -8,7 +8,7 @@ namespace PongCSharp.Game;
 public partial class PlayerScoreManager : Node
 {
     // Fields
-    private Dictionary<GoalSide, int> _goalSideToPlayerScore = new()
+    private readonly Dictionary<GoalSide, int> _goalSideToPlayerScore = new()
     {
         [GoalSide.Left] = 0,
         [GoalSide.Right] = 0,
@@ -31,19 +31,19 @@ public partial class PlayerScoreManager : Node
     private void Subscribe()
     {
         GlobalEventBus.Instance!.GameReset += GlobalEventBus_GameReset;
-        GlobalEventBus.Instance!.MatchTimeLimitReached += ScoreLimitMatchTypeHandler_OnMatchTimeLimitReached;
+        GlobalEventBus.Instance!.MatchTimeLimitReached += MatchTimeManager_OnMatchTimeLimitReached;
     }
 
     private void Unsubscribe()
     {
         GlobalEventBus.Instance!.GameReset -= GlobalEventBus_GameReset;
-        GlobalEventBus.Instance!.MatchTimeLimitReached -= ScoreLimitMatchTypeHandler_OnMatchTimeLimitReached;
+        GlobalEventBus.Instance!.MatchTimeLimitReached -= MatchTimeManager_OnMatchTimeLimitReached;
     }
 
     // Event Handlers
     private void GlobalEventBus_GameReset() => ResetPlayerScores();
 
-    private void ScoreLimitMatchTypeHandler_OnMatchTimeLimitReached()
+    private void MatchTimeManager_OnMatchTimeLimitReached()
         => GlobalEventBus.Instance!.RaisePlayerScoresFinalized(_goalSideToPlayerScore);
 
     // Methods
