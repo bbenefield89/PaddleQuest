@@ -63,7 +63,7 @@ public partial class Ball : CharacterBody2D
     private void ChooseRandomDirection()
     {
         float randomDirection() => _rng.RandfRange(-1, 1);
-        var randomizedDirection = new Vector2(randomDirection(), randomDirection());
+        var randomizedDirection = new Vector2(randomDirection(), 0);
         _direction = randomizedDirection.Normalized();
     }
 
