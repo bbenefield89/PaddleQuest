@@ -1,6 +1,7 @@
 using Godot;
 using PongCSharp.Enums;
 using PongCSharp.MatchTypeHandlers;
+using PongCSharp.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,22 +29,28 @@ public partial class MatchTypeManager : Node
     public override void _Process(double delta)
     {
         base._Process(delta);
-        _matchTypeHandler?.Process();
+        _matchTypeHandler?.Process(delta);
     }
 
     // Methods
-    public void ChangeMatchType(MatchSettings matchSettings)
+    public void LoadMatchType(MatchSettings matchSettings)
     {
         _matchTypeHandler?.Exit();
 
         if (!_matchTypeToHandler.TryGetValue(matchSettings.MatchType, out var matchTypeHandler))
         {
-            // Victory condition doesnt exist
+            // MatchType not implemented
             Debugger.Break();
             return;
         }
 
         _matchTypeHandler = matchTypeHandler(matchSettings);
         _matchTypeHandler?.Enter();
+    }
+
+    public void UnloadMatchType()
+    {
+        _matchTypeHandler?.Exit();
+        _matchTypeHandler = null;
     }
 }

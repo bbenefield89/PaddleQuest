@@ -1,31 +1,30 @@
 using PongCSharp.Autoloads;
 using PongCSharp.Enums;
-using System;
+using PongCSharp.Game.MatchTimeManager;
+using PongCSharp.Models;
 using System.Collections.Generic;
 using System.Linq;
-using static PongCSharp.Scenes.MatchOptionsMenu;
 
 namespace PongCSharp.MatchTypeHandlers;
 
 public class ScoreLimitMatchTypeHandler(MatchSettings matchSettings) : IMatchTypeHandler
 {
-    private DateTime _matchEndTime;
+    private readonly MatchTimeManager _matchTimeManager = new(matchSettings);
 
     // Lifecycles
     public void Enter()
     {
         Subscribe();
-        _matchEndTime = DateTime.UtcNow.AddSeconds(matchSettings.TimeLimit);
+        _matchTimeManager.Ready();
     }
 
-    public void Process()
-    {
-        if (DateTime.UtcNow >= _matchEndTime)
-            GlobalEventBus.Instance?.RaiseMatchTimeLimitReached();
-    }
+    public void Process(double delta) => _matchTimeManager.Process(delta);
 
     public void Exit()
-        => Unsubscribe();
+    {
+        Unsubscribe();
+        _matchTimeManager.Exit();
+    }
 
     // Setup
     private void Subscribe()

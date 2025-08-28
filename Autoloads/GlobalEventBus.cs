@@ -45,6 +45,11 @@ public partial class GlobalEventBus : Node
     public void RaiseMatchTimeLimitReached()
         => MatchTimeLimitReached?.Invoke();
 
+    // MatchTimeUpdated
+    public event Action<double>? MatchTimeUpdated;
+    public void RaiseMatchTimeUpdated(double currentMatchTime)
+        => MatchTimeUpdated?.Invoke(currentMatchTime);
+
     // VictoryConditionAchieved
     public event Action<GoalSide>? VictoryConditionAchieved;
     public void RaiseVictoryConditionAchieved(GoalSide playerId)

@@ -6,7 +6,7 @@ public interface IMatchTypeHandler
 {
     public void Enter();
 
-    public void Process();
+    public void Process(double delta);
 
     public void Exit();
 }
