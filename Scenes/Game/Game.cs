@@ -23,10 +23,6 @@ public partial class Game : Node
     [Export]
     private VictoryAchievedMenu? _victoryAchievedMenu;
 
-    // Services
-    [Export]
-    private PlayerScoreManager? _playerScoreManager;
-
     // Lifecycles
     public override void _Ready()
     {
@@ -65,11 +61,7 @@ public partial class Game : Node
     }
 
     // Event Handlers
-    private void Goal_OnBallEnteredGoal(GoalSide goalSide)
-    {
-        _ball!.Reset();
-        _playerScoreManager!.IncreasePlayerScore(goalSide);
-    }
+    private void Goal_OnBallEnteredGoal(GoalSide goalSide) => _ball!.Reset();
 
     private void PlayerScoreManager_OnPlayerScoresUpdated(
         Dictionary<GoalSide, int> goalSideToScore
@@ -77,7 +69,7 @@ public partial class Game : Node
         => _scoreboard!.UpdateScores(goalSideToScore);
 
     public void MatchTypeHandler_OnVictoryConditionAchieved(GoalSide winningGoalSide)
-    => _victoryAchievedMenu!.Show(winningGoalSide);
+        => _victoryAchievedMenu!.Show(winningGoalSide);
 
     // Validation
     private void Validate()
@@ -89,9 +81,6 @@ public partial class Game : Node
 
         if (_scoreboard is null)
             errors.Add($"{nameof(_scoreboard)} is null");
-
-        if (_playerScoreManager is null)
-            errors.Add($"{nameof(_playerScoreManager)} is null");
 
         if (errors.Count == 0)
             return;
