@@ -29,44 +29,26 @@ layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 
-[node name="Score Limit" type="Control" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer"]
+[node name="ScoreLimit" type="Control" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="ScoreLimitContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit"]
+[node name="SettingsContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/ScoreLimit"]
 layout_mode = 0
-offset_right = 151.0
-offset_bottom = 40.0
+offset_right = 400.0
+offset_bottom = 48.0
+theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/ScoreLimitContainer"]
+[node name="ScoreLimitInput" type="SpinBox" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/ScoreLimit/SettingsContainer"]
+custom_minimum_size = Vector2(156.95, 0)
 layout_mode = 2
-text = "Score Limit"
+prefix = "Score Limit:"
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/ScoreLimitContainer"]
-layout_mode = 2
-
-[node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/ScoreLimitContainer"]
+[node name="TimeLimitInput" type="SpinBox" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/ScoreLimit/SettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "1"
-
-[node name="TimeLimitContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit"]
-layout_mode = 0
-offset_left = 187.0
-offset_right = 402.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/TimeLimitContainer"]
-layout_mode = 2
-text = "Time Limit (Seconds)"
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/TimeLimitContainer"]
-layout_mode = 2
-
-[node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/Score Limit/TimeLimitContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "60"
+max_value = 300.0
+prefix = "Time Limit (Seconds):"
 
 [node name="StartMatchButton" type="Button" parent="PanelContainer/VBoxContainer"]
 clip_contents = true
