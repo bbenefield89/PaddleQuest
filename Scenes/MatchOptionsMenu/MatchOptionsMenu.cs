@@ -2,6 +2,8 @@ using Godot;
 using PongCSharp.Autoloads;
 using PongCSharp.Enums;
 using PongCSharp.Models;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PongCSharp.Scenes;
 
@@ -18,6 +20,7 @@ public partial class MatchOptionsMenu : Control
     public override void _Ready()
     {
         base._Ready();
+        Validate();
         Subscribe();
     }
 
@@ -28,12 +31,14 @@ public partial class MatchOptionsMenu : Control
     }
 
     // Setup
-    private void Subscribe() => _startMatchButton!.ButtonUp += StartMatchButton_OnButtonUp;
+    private void Subscribe()
+        => GlobalEventBus.Instance!.StartMatchButtonUp += StartMatchButton_OnStartMatchButtonUp;
 
-    private void Unsubscribe() => _startMatchButton!.ButtonUp -= StartMatchButton_OnButtonUp;
+    private void Unsubscribe()
+        => GlobalEventBus.Instance!.StartMatchButtonUp -= StartMatchButton_OnStartMatchButtonUp;
 
     // Methods
-    private void StartMatchButton_OnButtonUp()
+    private void StartMatchButton_OnStartMatchButtonUp()
     {
         var currentTab = _matchOptionsTabContainer!.GetCurrentTabControl();
         var settingsContainer = currentTab.GetNode<HBoxContainer>("SettingsContainer");
@@ -49,5 +54,24 @@ public partial class MatchOptionsMenu : Control
 
         MatchTypeManager.Instance!.LoadMatchType(matchSettings);
         SceneLoader.Instance!.ChangeSceneTo(SceneName.Game);
+    }
+
+    // Validation
+    private void Validate()
+    {
+        var errorMessages = new List<string>();
+
+        if (_matchOptionsTabContainer is null)
+            errorMessages.Add("");
+
+        if (_startMatchButton is null)
+            errorMessages.Add("");
+
+        if (errorMessages.Count == 0)
+            return;
+
+        Debugger.Break();
+        GD.PushError(string.Join("\n", errorMessages));
+        GetTree().Quit();
     }
 }

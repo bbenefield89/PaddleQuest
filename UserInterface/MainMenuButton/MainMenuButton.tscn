@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dba8otm1pvoys"]
-
-[ext_resource type="Script" uid="uid://cvorgfb5hn8ai" path="res://Game/PauseMenu/MainMenuButton.cs" id="1_0vtss"]
-
-[node name="MainMenuButton" type="Button"]
-text = "Main Menu"
-script = ExtResource("1_0vtss")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c3vv5iybgesoe"]
+[gd_scene load_steps=22 format=3 uid="uid://c3vv5iybgesoe"]
 
 [ext_resource type="Script" uid="uid://do26se8dhu8so" path="res://Scenes/Game/Game.cs" id="1_3cx6b"]
 [ext_resource type="Script" uid="uid://cjhdvrl001lgu" path="res://Game/Ball/Ball.cs" id="1_rdw05"]
@@ -7,12 +7,15 @@
 [ext_resource type="Script" uid="uid://d08p6pxqghq8k" path="res://Game/Paddle/PaddleTwo.cs" id="3_xbxml"]
 [ext_resource type="Script" uid="uid://d2pkd0fbv7lj5" path="res://Game/Scoreboard/Scoreboard.cs" id="6_r0byk"]
 [ext_resource type="Script" uid="uid://xbit2b2hs3cn" path="res://Game/PauseMenu/PauseMenu.cs" id="7_1q8bt"]
-[ext_resource type="Script" uid="uid://dannu3mw2a58o" path="res://Game/PauseMenu/ResumeGameButton.cs" id="8_gvja8"]
-[ext_resource type="Script" uid="uid://tmcf3e0ss35g" path="res://UserInterface/OptionsMenuButton/OptionsMenuButton.cs" id="9_10ki7"]
-[ext_resource type="PackedScene" uid="uid://dba8otm1pvoys" path="res://UserInterface/MainMenuButton/MainMenuButton.tscn" id="10_r0byk"]
+[ext_resource type="PackedScene" uid="uid://xmj6ffmkxwsj" path="res://Game/PauseMenu/ResumeGameButton/ResumeGameButton.tscn" id="8_bsqcq"]
+[ext_resource type="Script" uid="uid://dannu3mw2a58o" path="res://Game/PauseMenu/ResumeGameButton/ResumeGameButton.cs" id="8_gvja8"]
+[ext_resource type="PackedScene" uid="uid://b4vm3g2tjstwm" path="res://UserInterface/OptionsMenuButton/OptionsMenuButton.tscn" id="9_edkrd"]
+[ext_resource type="PackedScene" uid="uid://b1v0wkr6oltjs" path="res://Game/PauseMenu/MainMenuButton/MainMenuButton.tscn" id="10_r0byk"]
 [ext_resource type="PackedScene" uid="uid://cpfuat8j2eyp7" path="res://UserInterface/QuitGameButton/QuitGameButton.tscn" id="11_hmm1m"]
 [ext_resource type="Script" uid="uid://8knhoda46wed" path="res://Game/VictoryAchievedMenu/VictoryAchievedMenu.cs" id="12_r0byk"]
-[ext_resource type="Script" uid="uid://7282tg4hfl5d" path="res://UserInterface/PlayAgainButton/PlayAgainButton.cs" id="13_hmm1m"]
+[ext_resource type="Script" uid="uid://7282tg4hfl5d" path="res://Game/VictoryAchievedMenu/PlayAgainButton/PlayAgainButton.cs" id="13_hmm1m"]
+[ext_resource type="PackedScene" uid="uid://bfcg68ywh4udl" path="res://Game/VictoryAchievedMenu/PlayAgainButton/PlayAgainButton.tscn" id="14_jf0ra"]
+[ext_resource type="Script" uid="uid://cvorgfb5hn8ai" path="res://Game/PauseMenu/MainMenuButton/MainMenuButton.cs" id="16_fg52j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwuib"]
 size = Vector2(1150, 10)
@@ -147,7 +150,7 @@ offset_right = 41.0
 offset_bottom = 23.0
 text = "0"
 
-[node name="PauseMenu" type="PanelContainer" parent="UIRoot/Control"]
+[node name="PauseMenu" type="PanelContainer" parent="UIRoot/Control" node_paths=PackedStringArray("ResumeGameButton")]
 process_mode = 3
 visible = false
 layout_mode = 0
@@ -157,22 +160,22 @@ offset_right = 753.0
 offset_bottom = 242.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3k6gv")
 script = ExtResource("7_1q8bt")
+ResumeGameButton = NodePath("BoxContainer/ResumeGameButton")
 
 [node name="BoxContainer" type="BoxContainer" parent="UIRoot/Control/PauseMenu"]
 layout_mode = 2
 
-[node name="ResumeGameButton" type="Button" parent="UIRoot/Control/PauseMenu/BoxContainer"]
+[node name="ResumeGameButton" parent="UIRoot/Control/PauseMenu/BoxContainer" instance=ExtResource("8_bsqcq")]
 layout_mode = 2
 text = "Resume Game"
 script = ExtResource("8_gvja8")
 
-[node name="OptionsButton" type="Button" parent="UIRoot/Control/PauseMenu/BoxContainer"]
+[node name="OptionsMenuButton" parent="UIRoot/Control/PauseMenu/BoxContainer" instance=ExtResource("9_edkrd")]
 layout_mode = 2
-text = "Options"
-script = ExtResource("9_10ki7")
 
 [node name="MainMenuButton" parent="UIRoot/Control/PauseMenu/BoxContainer" instance=ExtResource("10_r0byk")]
 layout_mode = 2
+script = ExtResource("16_fg52j")
 
 [node name="QuitGameButton" parent="UIRoot/Control/PauseMenu/BoxContainer" instance=ExtResource("11_hmm1m")]
 layout_mode = 2
@@ -199,13 +202,15 @@ horizontal_alignment = 1
 [node name="ButtonsContainer" type="BoxContainer" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer"]
 layout_mode = 2
 
-[node name="PlayAgainButton" type="Button" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer/ButtonsContainer"]
+[node name="PlayAgainButton" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer/ButtonsContainer" instance=ExtResource("14_jf0ra")]
 layout_mode = 2
 text = "Play Again"
 script = ExtResource("13_hmm1m")
 
 [node name="MainMenuButton" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer/ButtonsContainer" instance=ExtResource("10_r0byk")]
 layout_mode = 2
+text = "Main Menu"
+script = ExtResource("16_fg52j")
 
 [node name="QuitGameButton" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer/ButtonsContainer" instance=ExtResource("11_hmm1m")]
 layout_mode = 2

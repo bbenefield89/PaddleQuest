@@ -12,7 +12,7 @@ config_version=5
 
 config/name="PongCSharp"
 config/tags=PackedStringArray("c#", "cs")
-run/main_scene="uid://dcgqxcyfk2g7k"
+run/main_scene="uid://h5mhfexs4r2v"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
