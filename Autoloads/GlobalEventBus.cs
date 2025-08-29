@@ -25,6 +25,16 @@ public partial class GlobalEventBus : Node
     public void RaiseGameStarted()
         => GameStarted?.Invoke();
 
+    // MatchTimeLimitReached
+    public event Action? MatchTimeLimitReached;
+    public void RaiseMatchTimeLimitReached()
+        => MatchTimeLimitReached?.Invoke();
+
+    // MatchTimeUpdated
+    public event Action<double>? MatchTimeUpdated;
+    public void RaiseMatchTimeUpdated(double currentMatchTime)
+        => MatchTimeUpdated?.Invoke(currentMatchTime);
+
     // PlayerScoreChanged
     public event Action<int, int>? PlayerScoreChanged;
     public void RaisePlayerScoreChanged(int playerId, int totalScore)
@@ -40,15 +50,10 @@ public partial class GlobalEventBus : Node
     public void RaisePlayerScoresUpdated(Dictionary<GoalSide, int> playerScores)
         => PlayerScoresUpdated?.Invoke(playerScores);
 
-    // MatchTimeLimitReached
-    public event Action? MatchTimeLimitReached;
-    public void RaiseMatchTimeLimitReached()
-        => MatchTimeLimitReached?.Invoke();
-
-    // MatchTimeUpdated
-    public event Action<double>? MatchTimeUpdated;
-    public void RaiseMatchTimeUpdated(double currentMatchTime)
-        => MatchTimeUpdated?.Invoke(currentMatchTime);
+    // StartMatchButtonUp
+    public event Action? StartMatchButtonUp;
+    public void RaiseStartMatchButtonUp()
+        => StartMatchButtonUp?.Invoke();
 
     // VictoryConditionAchieved
     public event Action<GoalSide>? VictoryConditionAchieved;

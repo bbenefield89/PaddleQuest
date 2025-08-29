@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfcg68ywh4udl"]
+
+[ext_resource type="PackedScene" uid="uid://c3xd4cyvk3cjw" path="res://UserInterface/MenuButtonBase/MenuButtonBase.tscn" id="1_aqglg"]
+
+[node name="PlayAgainButton" instance=ExtResource("1_aqglg")]

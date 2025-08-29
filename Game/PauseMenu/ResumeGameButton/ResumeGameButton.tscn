@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://xmj6ffmkxwsj"]
+
+[ext_resource type="PackedScene" uid="uid://c3xd4cyvk3cjw" path="res://UserInterface/MenuButtonBase/MenuButtonBase.tscn" id="1_80ciq"]
+
+[node name="ResumeGameButton" instance=ExtResource("1_80ciq")]
