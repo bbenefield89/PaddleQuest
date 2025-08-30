@@ -1,7 +1,10 @@
 using Godot;
-using PongCSharp.Enums;
 using PongCSharp.Autoloads;
+using PongCSharp.Enums;
 using PongCSharp.Game.Paddle;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace PongCSharp.Game.Ball;
 
@@ -26,10 +29,14 @@ public partial class Ball : CharacterBody2D
     [Export]
     private int _increaseBallSpeedEveryXSeconds = 1;
 
+    [Export]
+    private AudioStreamPlayer2D? _audioStreamPlayer;
+
     // Lifecycles
     public override void _Ready()
     {
         base._Ready();
+        Validate();
         _rng.Randomize();
         Reset();
     }
@@ -39,7 +46,7 @@ public partial class Ball : CharacterBody2D
         base._PhysicsProcess(delta);
         SpeedUpBall(delta);
         var collision = MoveBallAndCollide(delta);
-        BounceBallOnCollision(collision);
+        HandleCollision(collision);
     }
 
     // Setup
@@ -93,11 +100,17 @@ public partial class Ball : CharacterBody2D
         return collision;
     }
 
-    private void BounceBallOnCollision(KinematicCollision2D? collision)
+    private void HandleCollision(KinematicCollision2D? collision)
     {
         if (collision is null)
             return;
 
+        BounceBallOnCollision(collision);
+        PlayCollisionSound();
+    }
+
+    private void BounceBallOnCollision(KinematicCollision2D collision)
+    {
         var collider = collision.GetCollider();
 
         if (collider is PaddleBase paddle)
@@ -128,5 +141,23 @@ public partial class Ball : CharacterBody2D
 
         // Wall bounce or something else
         _direction = _direction.Bounce(collision.GetNormal()).Normalized();
+    }
+
+    private void PlayCollisionSound() => _audioStreamPlayer!.Play();
+
+    // Validation
+    private void Validate()
+    {
+        var errorMessages = new List<string>();
+
+        if (_audioStreamPlayer is null)
+            errorMessages.Add($"{nameof(_audioStreamPlayer)} is null");
+
+        if (errorMessages.Count == 0)
+            return;
+
+        Debugger.Break();
+        GD.Print(string.Join("\n", errorMessages));
+        GetTree().Quit();
     }
 }

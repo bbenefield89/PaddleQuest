@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1oto7waitjdo"]
+
+[ext_resource type="AudioStream" uid="uid://dseontn3q8cem" path="res://Assets/Audio/PongBgMusic.mp3" id="1_ixox3"]
+
+[node name="BgMusicPlayer" type="AudioStreamPlayer2D"]
+process_mode = 3
+stream = ExtResource("1_ixox3")
+pitch_scale = 0.8
+autoplay = true
+bus = &"Music"
+parameters/looping = true

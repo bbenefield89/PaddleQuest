@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://c3vv5iybgesoe"]
+[gd_scene load_steps=24 format=3 uid="uid://c3vv5iybgesoe"]
 
 [ext_resource type="Script" uid="uid://do26se8dhu8so" path="res://Scenes/Game/Game.cs" id="1_3cx6b"]
 [ext_resource type="Script" uid="uid://cjhdvrl001lgu" path="res://Game/Ball/Ball.cs" id="1_rdw05"]
 [ext_resource type="PackedScene" uid="uid://rr06b20s7c3w" path="res://Game/Goal/Goal.tscn" id="2_gp3ee"]
 [ext_resource type="Script" uid="uid://cdmk4l27g0der" path="res://Game/Paddle/PaddleOne.cs" id="2_gwu2e"]
 [ext_resource type="Script" uid="uid://d08p6pxqghq8k" path="res://Game/Paddle/PaddleTwo.cs" id="3_xbxml"]
+[ext_resource type="AudioStream" uid="uid://d3gyxp0pcri87" path="res://Assets/Audio/BallHitsPaddle.wav" id="4_6581v"]
 [ext_resource type="Script" uid="uid://d2pkd0fbv7lj5" path="res://Game/Scoreboard/Scoreboard.cs" id="6_r0byk"]
 [ext_resource type="Script" uid="uid://xbit2b2hs3cn" path="res://Game/PauseMenu/PauseMenu.cs" id="7_1q8bt"]
 [ext_resource type="PackedScene" uid="uid://xmj6ffmkxwsj" path="res://Game/PauseMenu/ResumeGameButton/ResumeGameButton.tscn" id="8_bsqcq"]
@@ -16,6 +17,7 @@
 [ext_resource type="Script" uid="uid://7282tg4hfl5d" path="res://Game/VictoryAchievedMenu/PlayAgainButton/PlayAgainButton.cs" id="13_hmm1m"]
 [ext_resource type="PackedScene" uid="uid://bfcg68ywh4udl" path="res://Game/VictoryAchievedMenu/PlayAgainButton/PlayAgainButton.tscn" id="14_jf0ra"]
 [ext_resource type="Script" uid="uid://cvorgfb5hn8ai" path="res://Game/PauseMenu/MainMenuButton/MainMenuButton.cs" id="16_fg52j"]
+[ext_resource type="AudioStream" uid="uid://b0eqc2p6tx1al" path="res://Assets/Audio/MatchEnd.wav" id="18_6hht6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwuib"]
 size = Vector2(1150, 10)
@@ -73,9 +75,10 @@ offset_left = 582.0
 offset_right = 586.0
 offset_bottom = 648.0
 
-[node name="Ball" type="CharacterBody2D" parent="." groups=["Balls"]]
+[node name="Ball" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_audioStreamPlayer") groups=["Balls"]]
 position = Vector2(576, 324)
 script = ExtResource("1_rdw05")
+_audioStreamPlayer = NodePath("BallCollisionSound")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
 position = Vector2(8, 8)
@@ -84,6 +87,11 @@ shape = SubResource("RectangleShape2D_xbxml")
 [node name="ColorRect" type="ColorRect" parent="Ball"]
 offset_right = 16.0
 offset_bottom = 16.0
+
+[node name="BallCollisionSound" type="AudioStreamPlayer2D" parent="Ball"]
+position = Vector2(0, 1)
+stream = ExtResource("4_6581v")
+bus = &"SFX"
 
 [node name="Paddles" type="Node" parent="."]
 
@@ -180,7 +188,7 @@ script = ExtResource("16_fg52j")
 [node name="QuitGameButton" parent="UIRoot/Control/PauseMenu/BoxContainer" instance=ExtResource("11_hmm1m")]
 layout_mode = 2
 
-[node name="VictoryAchievedMenu" type="PanelContainer" parent="UIRoot/Control" node_paths=PackedStringArray("_victoryAchievedMenuLabel")]
+[node name="VictoryAchievedMenu" type="PanelContainer" parent="UIRoot/Control" node_paths=PackedStringArray("_victoryAchievedAudio", "_victoryAchievedMenuLabel")]
 process_mode = 3
 visible = false
 layout_mode = 0
@@ -189,6 +197,7 @@ offset_top = 188.0
 offset_right = 700.0
 offset_bottom = 257.0
 script = ExtResource("12_r0byk")
+_victoryAchievedAudio = NodePath("MatchEndAudioStreamer")
 _victoryAchievedMenuLabel = NodePath("BoxContainer/VictoryAchievedMenuLabel")
 
 [node name="BoxContainer" type="VBoxContainer" parent="UIRoot/Control/VictoryAchievedMenu"]
@@ -214,3 +223,9 @@ script = ExtResource("16_fg52j")
 
 [node name="QuitGameButton" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer/ButtonsContainer" instance=ExtResource("11_hmm1m")]
 layout_mode = 2
+
+[node name="MatchEndAudioStreamer" type="AudioStreamPlayer2D" parent="UIRoot/Control/VictoryAchievedMenu"]
+stream = ExtResource("18_6hht6")
+volume_db = -20.0
+pitch_scale = 0.65
+bus = &"Jingles"

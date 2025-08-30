@@ -9,6 +9,9 @@ public partial class VictoryAchievedMenu : PanelContainer
 {
     // Exports
     [Export]
+    private AudioStreamPlayer2D? _victoryAchievedAudio;
+
+    [Export]
     private Label? _victoryAchievedMenuLabel;
 
     // Lifecycles
@@ -48,6 +51,7 @@ public partial class VictoryAchievedMenu : PanelContainer
     {
         Visible = true;
         SetVictoryAchievedLabelText((int)winningGoalSide);
+        _victoryAchievedAudio?.Play();
     }
 
     private void SetVictoryAchievedLabelText(int playerId)

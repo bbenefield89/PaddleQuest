@@ -12,7 +12,7 @@ config_version=5
 
 config/name="PongCSharp"
 config/tags=PackedStringArray("c#", "cs")
-run/main_scene="uid://h5mhfexs4r2v"
+run/main_scene="uid://dcgqxcyfk2g7k"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,7 @@ SceneLoader="*res://Autoloads/SceneLoader.cs"
 GameStateManager="*res://Autoloads/GameStateManager.cs"
 GlobalEventBus="*res://Autoloads/GlobalEventBus.cs"
 MatchTypeManager="*res://Autoloads/MatchTypeManager.cs"
+BgMusicPlayer="*res://Autoloads/BgMusicPlayer.tscn"
 
 [dotnet]
 
