@@ -39,5 +39,3 @@ layout_mode = 2
 
 [node name="QuitGameButton" parent="VBoxContainer" instance=ExtResource("4_ua038")]
 layout_mode = 2
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

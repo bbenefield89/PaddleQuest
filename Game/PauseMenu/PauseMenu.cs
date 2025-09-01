@@ -3,6 +3,8 @@ using PongCSharp.Autoloads;
 using PongCSharp.Constants;
 using PongCSharp.Enums;
 
+namespace PongCSharp.Game;
+
 public partial class PauseMenu : PanelContainer
 {
     [Export]
@@ -21,9 +23,7 @@ public partial class PauseMenu : PanelContainer
         base._Process(delta);
 
         if (Input.IsActionJustPressed(InputActionsContants.PauseGame))
-        {
             TogglePauseMenu();
-        }
     }
 
     private void PauseMenu_ResumeButtonClicked()

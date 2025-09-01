@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://c3xd4cyvk3cjw"]
 
-[ext_resource type="AudioStream" uid="uid://cbihmhlhwjelv" path="res://Assets/Audio/click1.ogg" id="1_frrh4"]
+[ext_resource type="AudioStream" uid="uid://cbihmhlhwjelv" path="res://Assets/Audio/UiButtonClick.ogg" id="1_frrh4"]
 
 [node name="MenuButtonBase" type="Button"]
 
 [node name="ClickSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_frrh4")
+bus = &"UI"
