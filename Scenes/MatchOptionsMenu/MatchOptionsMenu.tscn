@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://h5mhfexs4r2v"]
+[gd_scene load_steps=5 format=3 uid="uid://h5mhfexs4r2v"]
 
 [ext_resource type="Script" uid="uid://coc2f5jgvp1ft" path="res://Scenes/MatchOptionsMenu/MatchOptionsMenu.cs" id="1_nycao"]
+[ext_resource type="PackedScene" uid="uid://b1v0wkr6oltjs" path="res://Game/PauseMenu/MainMenuButton/MainMenuButton.tscn" id="2_srxhn"]
 [ext_resource type="PackedScene" uid="uid://dg1dy0ttelpdy" path="res://UserInterface/StartMatchButton/StartMatchButton.tscn" id="2_y10mx"]
 [ext_resource type="Script" uid="uid://by3qu7hs2xohw" path="res://UserInterface/StartMatchButton/StartMatchButton.cs" id="3_d6njv"]
 
@@ -13,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nycao")
 _matchOptionsTabContainer = NodePath("PanelContainer/VBoxContainer/MatchOptionsTabContainer")
-_startMatchButton = NodePath("PanelContainer/VBoxContainer/StartMatchButton")
+_startMatchButton = NodePath("PanelContainer/VBoxContainer/HBoxContainer/StartMatchButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -52,8 +53,17 @@ size_flags_horizontal = 3
 max_value = 300.0
 prefix = "Time Limit (Seconds):"
 
-[node name="StartMatchButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("2_y10mx")]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MainMenuButton" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_srxhn")]
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartMatchButton" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_y10mx")]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Start Match"
 script = ExtResource("3_d6njv")
