@@ -45,13 +45,17 @@ theme_override_constants/separation = 20
 [node name="ScoreLimitInput" type="SpinBox" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/ScoreLimit/SettingsContainer"]
 custom_minimum_size = Vector2(156.95, 0)
 layout_mode = 2
+value = 1.0
 prefix = "Score Limit:"
+select_all_on_focus = true
 
 [node name="TimeLimitInput" type="SpinBox" parent="PanelContainer/VBoxContainer/MatchOptionsTabContainer/ScoreLimit/SettingsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 300.0
+value = 5.0
 prefix = "Time Limit (Seconds):"
+select_all_on_focus = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
