@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c3vv5iybgesoe"]
+[gd_scene load_steps=23 format=3 uid="uid://c3vv5iybgesoe"]
 
 [ext_resource type="Script" uid="uid://do26se8dhu8so" path="res://Scenes/Game/Game.cs" id="1_3cx6b"]
 [ext_resource type="Script" uid="uid://cjhdvrl001lgu" path="res://Game/Ball/Ball.cs" id="1_rdw05"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://8knhoda46wed" path="res://Game/VictoryAchievedMenu/VictoryAchievedMenu.cs" id="12_r0byk"]
 [ext_resource type="Script" uid="uid://7282tg4hfl5d" path="res://Game/VictoryAchievedMenu/PlayAgainButton/PlayAgainButton.cs" id="13_hmm1m"]
 [ext_resource type="PackedScene" uid="uid://bfcg68ywh4udl" path="res://Game/VictoryAchievedMenu/PlayAgainButton/PlayAgainButton.tscn" id="14_jf0ra"]
-[ext_resource type="Script" uid="uid://cvorgfb5hn8ai" path="res://Game/PauseMenu/MainMenuButton/MainMenuButton.cs" id="16_fg52j"]
 [ext_resource type="AudioStream" uid="uid://b0eqc2p6tx1al" path="res://Assets/Audio/MatchEnd.wav" id="18_6hht6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwuib"]
@@ -160,7 +159,6 @@ text = "0"
 
 [node name="PauseMenu" type="PanelContainer" parent="UIRoot/Control" node_paths=PackedStringArray("ResumeGameButton")]
 process_mode = 3
-visible = false
 layout_mode = 0
 offset_left = 413.0
 offset_top = 202.0
@@ -183,7 +181,6 @@ layout_mode = 2
 
 [node name="MainMenuButton" parent="UIRoot/Control/PauseMenu/BoxContainer" instance=ExtResource("10_r0byk")]
 layout_mode = 2
-script = ExtResource("16_fg52j")
 
 [node name="QuitGameButton" parent="UIRoot/Control/PauseMenu/BoxContainer" instance=ExtResource("11_hmm1m")]
 layout_mode = 2
@@ -218,8 +215,6 @@ script = ExtResource("13_hmm1m")
 
 [node name="MainMenuButton" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer/ButtonsContainer" instance=ExtResource("10_r0byk")]
 layout_mode = 2
-text = "Main Menu"
-script = ExtResource("16_fg52j")
 
 [node name="QuitGameButton" parent="UIRoot/Control/VictoryAchievedMenu/BoxContainer/ButtonsContainer" instance=ExtResource("11_hmm1m")]
 layout_mode = 2

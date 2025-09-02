@@ -1,5 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1v0wkr6oltjs"]
+[gd_scene load_steps=3 format=3 uid="uid://b1v0wkr6oltjs"]
 
 [ext_resource type="PackedScene" uid="uid://c3xd4cyvk3cjw" path="res://UserInterface/MenuButtonBase/MenuButtonBase.tscn" id="1_ovlr8"]
+[ext_resource type="Script" uid="uid://cvorgfb5hn8ai" path="res://Game/PauseMenu/MainMenuButton/MainMenuButton.cs" id="2_q6ue7"]
 
-[node name="MainMenuButton" instance=ExtResource("1_ovlr8")]
+[node name="MainMenuButton" node_paths=PackedStringArray("_clickSoundAudioPlayer") instance=ExtResource("1_ovlr8")]
+text = "Main Menu"
+script = ExtResource("2_q6ue7")
+_clickSoundAudioPlayer = NodePath("ClickSound")
