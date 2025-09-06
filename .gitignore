@@ -51,3 +51,6 @@ desktop.ini
 
 # Ignore Jira folder (optional, if local-only)
 Jira/
+
+# Misc
+*.zip

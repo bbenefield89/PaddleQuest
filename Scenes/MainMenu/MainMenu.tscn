@@ -1,41 +1,66 @@
 [gd_scene load_steps=7 format=3 uid="uid://dcgqxcyfk2g7k"]
 
 [ext_resource type="Script" uid="uid://wqnfkpv81qm4" path="res://Scenes/MainMenu/MainMenu.cs" id="1_df05h"]
+[ext_resource type="PackedScene" uid="uid://c1nawdqca6ekq" path="res://Starfield/Starfield.tscn" id="1_ua038"]
 [ext_resource type="PackedScene" uid="uid://ca8ywv5codsyu" path="res://UserInterface/NewGameButton/NewGameButton.tscn" id="2_c7oo3"]
 [ext_resource type="PackedScene" uid="uid://b4vm3g2tjstwm" path="res://UserInterface/OptionsMenuButton/OptionsMenuButton.tscn" id="3_kpx3y"]
+[ext_resource type="PackedScene" uid="uid://d045wu3apfsml" path="res://UserInterface/ThemedControl/ThemedControl.tscn" id="3_vapy7"]
 [ext_resource type="PackedScene" uid="uid://cpfuat8j2eyp7" path="res://UserInterface/QuitGameButton/QuitGameButton.tscn" id="4_ua038"]
 
-[sub_resource type="Gradient" id="Gradient_nl4gn"]
-colors = PackedColorArray(0.226707, 0.226707, 0.226707, 1, 0.223103, 0.223103, 0.223103, 1)
+[node name="MainMenu" type="Node2D"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cdkru"]
-gradient = SubResource("Gradient_nl4gn")
+[node name="Starfield" parent="." instance=ExtResource("1_ua038")]
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
+[node name="UserInterface" type="CanvasLayer" parent="."]
+script = ExtResource("1_df05h")
+
+[node name="NeonGalaxyControl" parent="UserInterface" instance=ExtResource("3_vapy7")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_df05h")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-texture = SubResource("GradientTexture1D_cdkru")
+[node name="CenterContainer" type="CenterContainer" parent="UserInterface/NeonGalaxyControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 80.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/NeonGalaxyControl/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
 
-[node name="NewGameButton" parent="VBoxContainer" instance=ExtResource("2_c7oo3")]
+[node name="TitleTextContainer" type="VBoxContainer" parent="UserInterface/NeonGalaxyControl/CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PaddleText" type="RichTextLabel" parent="UserInterface/NeonGalaxyControl/CenterContainer/VBoxContainer/TitleTextContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 82
+bbcode_enabled = true
+text = "[center]PADDLE
+QUEST[/center]"
+fit_content = true
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="UserInterface/NeonGalaxyControl/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 13
+
+[node name="NewGameButton" parent="UserInterface/NeonGalaxyControl/CenterContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("2_c7oo3")]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="OptionsMenuButton" parent="VBoxContainer" instance=ExtResource("3_kpx3y")]
+[node name="OptionsMenuButton" parent="UserInterface/NeonGalaxyControl/CenterContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("3_kpx3y")]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="QuitGameButton" parent="VBoxContainer" instance=ExtResource("4_ua038")]
+[node name="QuitGameButton" parent="UserInterface/NeonGalaxyControl/CenterContainer/VBoxContainer/ButtonsContainer" instance=ExtResource("4_ua038")]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+flat = true

@@ -4,7 +4,7 @@ using PongCSharp.Enums;
 
 namespace PongCSharp.Scenes;
 
-public partial class MainMenu : Control
+public partial class MainMenu : CanvasLayer
 {
     public override void _Ready()
     {

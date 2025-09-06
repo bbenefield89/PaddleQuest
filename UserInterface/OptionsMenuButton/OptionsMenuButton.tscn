@@ -4,5 +4,6 @@
 [ext_resource type="Script" uid="uid://tmcf3e0ss35g" path="res://UserInterface/OptionsMenuButton/OptionsMenuButton.cs" id="2_wnav5"]
 
 [node name="OptionsMenuButton" instance=ExtResource("1_0ruab")]
+disabled = true
 text = "Options"
 script = ExtResource("2_wnav5")
