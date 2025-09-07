@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d045wu3apfsml"]
+
+[ext_resource type="Theme" uid="uid://da25mt2t1waum" path="res://Themes/NeonGalaxyTheme.tres" id="1_m3nbo"]
+
+[node name="ThemedControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_m3nbo")

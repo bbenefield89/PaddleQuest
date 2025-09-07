@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace PongCSharp.Scenes;
 
-public partial class MatchOptionsMenu : Control
+public partial class MatchOptionsMenu : Node2D
 {
     // Exports
     [Export]
