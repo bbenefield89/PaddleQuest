@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace PongCSharp.Scenes;
 
-public partial class Game : Node
+public partial class Game : Node2D
 {
     // Exports
     [Export]

@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace PongCSharp.Game.Scoreboard;
 
-public partial class Scoreboard : Control
+public partial class Scoreboard : HBoxContainer
 {
     // Exports
     [Export]

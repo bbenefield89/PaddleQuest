@@ -21,16 +21,19 @@ public partial class Ball : CharacterBody2D
 
     // Exports
     [Export]
+    private AudioStreamPlayer2D? _audioStreamPlayer;
+
+    [Export]
     private int _ballSpeedIncreaseBy = 50;
 
     [Export]
     private int _baseBallSpeed = 300;
 
     [Export]
-    private int _increaseBallSpeedEveryXSeconds = 1;
+    private CollisionShape2D? _collisionShape2D;
 
     [Export]
-    private AudioStreamPlayer2D? _audioStreamPlayer;
+    private int _increaseBallSpeedEveryXSeconds = 1;
 
     // Lifecycles
     public override void _Ready()
@@ -60,9 +63,11 @@ public partial class Ball : CharacterBody2D
     private void ResetPosition()
     {
         var gameScreenSize = GetViewportRect().Size;
+        var ballCollisionShape = _collisionShape2D!.Shape as RectangleShape2D;
+
         Position = new Vector2
             (
-                gameScreenSize.X / 2,
+                (gameScreenSize.X / 2) - (ballCollisionShape!.Size.X / 2),
                 gameScreenSize.Y / 2
             );
     }
@@ -152,6 +157,12 @@ public partial class Ball : CharacterBody2D
 
         if (_audioStreamPlayer is null)
             errorMessages.Add($"{nameof(_audioStreamPlayer)} is null");
+
+        if (_collisionShape2D is null)
+            errorMessages.Add($"{nameof(_collisionShape2D)} is null");
+
+        if (_collisionShape2D?.Shape is not RectangleShape2D)
+            errorMessages.Add($"{nameof(_collisionShape2D)} is not set to RectangleShape2D");
 
         if (errorMessages.Count == 0)
             return;

@@ -48,5 +48,7 @@ Button/fonts/font = ExtResource("1_qwa1m")
 Button/styles/hover = SubResource("StyleBoxFlat_mlcix")
 Button/styles/normal = SubResource("StyleBoxFlat_qwa1m")
 Button/styles/pressed = SubResource("StyleBoxFlat_n8w3k")
+Label/font_sizes/font_size = 22
+Label/fonts/font = ExtResource("1_qwa1m")
 RichTextLabel/colors/default_color = Color(0.223529, 1, 0.0784314, 1)
 RichTextLabel/fonts/normal_font = ExtResource("1_qwa1m")
