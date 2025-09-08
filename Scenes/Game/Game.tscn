@@ -32,7 +32,7 @@ size = Vector2(14, 165)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3kpf"]
 size = Vector2(14, 165)
 
-[node name="Game" type="Node" node_paths=PackedStringArray("_ball", "_scoreboard", "_victoryAchievedMenu")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_ball", "_scoreboard", "_victoryAchievedMenu")]
 script = ExtResource("1_3cx6b")
 _ball = NodePath("Ball")
 _scoreboard = NodePath("UserInterface/ThemedControl/ScoreBoard")
@@ -72,14 +72,15 @@ position = Vector2(1161, 0)
 _goalSide = 2
 
 [node name="Divider" type="ColorRect" parent="Arena"]
-offset_left = 582.0
-offset_right = 586.0
+offset_left = 575.0
+offset_right = 579.0
 offset_bottom = 648.0
 
-[node name="Ball" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_audioStreamPlayer") groups=["Balls"]]
-position = Vector2(576, 324)
+[node name="Ball" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_audioStreamPlayer", "_collisionShape2D") groups=["Balls"]]
+position = Vector2(570, 324)
 script = ExtResource("1_rdw05")
 _audioStreamPlayer = NodePath("BallCollisionSound")
+_collisionShape2D = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
 position = Vector2(8, 8)
@@ -88,6 +89,7 @@ shape = SubResource("RectangleShape2D_xbxml")
 [node name="ColorRect" type="ColorRect" parent="Ball"]
 offset_right = 16.0
 offset_bottom = 16.0
+color = Color(0, 0.74902, 1, 1)
 
 [node name="BallCollisionSound" type="AudioStreamPlayer2D" parent="Ball"]
 position = Vector2(0, 1)
@@ -110,6 +112,7 @@ shape = SubResource("RectangleShape2D_ln2h6")
 [node name="ColorRect" type="ColorRect" parent="Paddles/PaddleOne/CharacterBody2D"]
 offset_right = 14.0
 offset_bottom = 165.0
+color = Color(0.223529, 1, 0.0784314, 1)
 
 [node name="PaddleTwo" type="Node" parent="Paddles"]
 
@@ -125,6 +128,7 @@ shape = SubResource("RectangleShape2D_y3kpf")
 [node name="ColorRect" type="ColorRect" parent="Paddles/PaddleTwo/CharacterBody2D"]
 offset_right = 14.0
 offset_bottom = 165.0
+color = Color(1, 0, 1, 1)
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 
@@ -135,27 +139,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScoreBoard" type="Control" parent="UserInterface/ThemedControl" node_paths=PackedStringArray("_playerScoreLabels")]
+[node name="ScoreBoard" type="HBoxContainer" parent="UserInterface/ThemedControl" node_paths=PackedStringArray("_playerScoreLabels")]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
 grow_horizontal = 2
+theme_override_constants/separation = 40
+alignment = 1
 script = ExtResource("6_r0byk")
 _playerScoreLabels = [NodePath("PlayerOneScore"), NodePath("PlayerTwoScore")]
 
 [node name="PlayerOneScore" type="Label" parent="UserInterface/ThemedControl/ScoreBoard"]
-layout_mode = 0
-offset_left = -25.0
-offset_right = -15.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "0"
 
 [node name="PlayerTwoScore" type="Label" parent="UserInterface/ThemedControl/ScoreBoard"]
-layout_mode = 0
-offset_left = 31.0
-offset_right = 41.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "0"
 
 [node name="PauseMenu" type="PanelContainer" parent="UserInterface/ThemedControl" node_paths=PackedStringArray("ResumeGameButton")]
