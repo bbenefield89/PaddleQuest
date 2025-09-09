@@ -152,10 +152,12 @@ _playerScoreLabels = [NodePath("PlayerOneScore"), NodePath("PlayerTwoScore")]
 
 [node name="PlayerOneScore" type="Label" parent="UserInterface/ThemedControl/ScoreBoard"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.223529, 1, 0.0784314, 1)
 text = "0"
 
 [node name="PlayerTwoScore" type="Label" parent="UserInterface/ThemedControl/ScoreBoard"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 1)
 text = "0"
 
 [node name="PauseMenu" type="PanelContainer" parent="UserInterface/ThemedControl" node_paths=PackedStringArray("ResumeGameButton")]
