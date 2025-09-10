@@ -13,6 +13,9 @@
     <Content Include="Properties\launchSettings.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\SmokeTestCheckList.md" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="gdUnit4.analyzers" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

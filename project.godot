@@ -14,15 +14,19 @@ config/name="PongCSharp"
 config/tags=PackedStringArray("c#", "cs")
 run/main_scene="uid://dcgqxcyfk2g7k"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Sprites/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://Assets/Audio/Busses/default_bus_layout.tres"
 
 [autoload]
 
-SceneLoader="*res://Autoloads/SceneLoader.cs"
-GameStateManager="*res://Autoloads/GameStateManager.cs"
-GlobalEventBus="*res://Autoloads/GlobalEventBus.cs"
-MatchTypeManager="*res://Autoloads/MatchTypeManager.cs"
-BgMusicPlayer="*res://Autoloads/BgMusicPlayer.tscn"
+SceneLoader="*res://Prefabs/Autoloads/SceneLoader.cs"
+GameStateManager="*res://Prefabs/Autoloads/GameStateManager.cs"
+GlobalEventBus="*res://Prefabs/Autoloads/GlobalEventBus.cs"
+MatchTypeManager="*res://Prefabs/Autoloads/MatchTypeManager.cs"
+BgMusicPlayer="*res://Prefabs/Autoloads/BgMusicPlayer.tscn"
 
 [dotnet]
 

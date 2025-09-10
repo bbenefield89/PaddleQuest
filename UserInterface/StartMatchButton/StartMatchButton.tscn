@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg1dy0ttelpdy"]
-
-[ext_resource type="PackedScene" uid="uid://c3xd4cyvk3cjw" path="res://UserInterface/MenuButtonBase/MenuButtonBase.tscn" id="1_g7rj3"]
-[ext_resource type="Script" uid="uid://by3qu7hs2xohw" path="res://UserInterface/StartMatchButton/StartMatchButton.cs" id="2_dmbay"]
-
-[node name="StartMatchButton" instance=ExtResource("1_g7rj3")]
-text = "Start"
-script = ExtResource("2_dmbay")
