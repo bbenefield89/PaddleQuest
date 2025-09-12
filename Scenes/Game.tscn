@@ -1,14 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://c3vv5iybgesoe"]
+[gd_scene load_steps=22 format=3 uid="uid://c3vv5iybgesoe"]
 
 [ext_resource type="Script" uid="uid://do26se8dhu8so" path="res://Scenes/Game.cs" id="1_3cx6b"]
 [ext_resource type="Script" uid="uid://cjhdvrl001lgu" path="res://Prefabs/Game/Ball.cs" id="1_rdw05"]
 [ext_resource type="PackedScene" uid="uid://c1nawdqca6ekq" path="res://Prefabs/Game/Starfield.tscn" id="2_6hht6"]
 [ext_resource type="PackedScene" uid="uid://rr06b20s7c3w" path="res://Prefabs/Game/Goal.tscn" id="2_gp3ee"]
-[ext_resource type="Script" uid="uid://cdmk4l27g0der" path="res://Prefabs/Game/PaddleOne.cs" id="2_gwu2e"]
-[ext_resource type="Script" uid="uid://d08p6pxqghq8k" path="res://Prefabs/Game/PaddleTwo.cs" id="3_xbxml"]
 [ext_resource type="AudioStream" uid="uid://d3gyxp0pcri87" path="res://Assets/Audio/Sfx/BallHitsPaddle.wav" id="4_6581v"]
+[ext_resource type="PackedScene" uid="uid://clntbrnvr4mdl" path="res://Prefabs/Game/PaddlePc.tscn" id="6_8r6kd"]
 [ext_resource type="Script" uid="uid://d2pkd0fbv7lj5" path="res://Prefabs/UserInterface/Scoreboard.cs" id="6_r0byk"]
 [ext_resource type="Script" uid="uid://xbit2b2hs3cn" path="res://Prefabs/UserInterface/PauseMenu.cs" id="7_1q8bt"]
+[ext_resource type="PackedScene" uid="uid://ohx8gp31te23" path="res://Prefabs/Game/PaddleAi.tscn" id="7_8r6kd"]
 [ext_resource type="PackedScene" uid="uid://xmj6ffmkxwsj" path="res://Prefabs/UserInterface/ResumeGameButton.tscn" id="8_bsqcq"]
 [ext_resource type="Script" uid="uid://dannu3mw2a58o" path="res://Prefabs/UserInterface/ResumeGameButton.cs" id="8_gvja8"]
 [ext_resource type="PackedScene" uid="uid://d045wu3apfsml" path="res://Prefabs/UserInterface/ThemedControl.tscn" id="8_kjp6r"]
@@ -25,12 +25,6 @@ size = Vector2(1150, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbxml"]
 size = Vector2(16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ln2h6"]
-size = Vector2(14, 165)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3kpf"]
-size = Vector2(14, 165)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_ball", "_scoreboard", "_victoryAchievedMenu")]
 script = ExtResource("1_3cx6b")
@@ -98,36 +92,20 @@ bus = &"SFX"
 
 [node name="Paddles" type="Node" parent="."]
 
-[node name="PaddleOne" type="Node" parent="Paddles"]
+[node name="PaddlePcOne" parent="Paddles" instance=ExtResource("6_8r6kd")]
+position = Vector2(1, 248)
+_upAction = 2
+_downAction = 3
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Paddles/PaddleOne" node_paths=PackedStringArray("_collisionShape")]
-position = Vector2(2, 1)
-script = ExtResource("2_gwu2e")
-_collisionShape = NodePath("CollisionShape2D")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddles/PaddleOne/CharacterBody2D"]
-position = Vector2(7, 82.5)
-shape = SubResource("RectangleShape2D_ln2h6")
-
-[node name="ColorRect" type="ColorRect" parent="Paddles/PaddleOne/CharacterBody2D"]
-offset_right = 14.0
-offset_bottom = 165.0
+[node name="ColorRect" parent="Paddles/PaddlePcOne" index="1"]
 color = Color(0.223529, 1, 0.0784314, 1)
 
-[node name="PaddleTwo" type="Node" parent="Paddles"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Paddles/PaddleTwo" node_paths=PackedStringArray("_collisionShape")]
-position = Vector2(1136, 168)
-script = ExtResource("3_xbxml")
+[node name="PaddleAi" parent="Paddles" node_paths=PackedStringArray("_ball", "_collisionShape") instance=ExtResource("7_8r6kd")]
+position = Vector2(1135, 232)
+_ball = NodePath("../../Ball")
 _collisionShape = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paddles/PaddleTwo/CharacterBody2D"]
-position = Vector2(7, 82.5)
-shape = SubResource("RectangleShape2D_y3kpf")
-
-[node name="ColorRect" type="ColorRect" parent="Paddles/PaddleTwo/CharacterBody2D"]
-offset_right = 14.0
-offset_bottom = 165.0
+[node name="ColorRect" parent="Paddles/PaddleAi" index="1"]
 color = Color(1, 0, 1, 1)
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
@@ -243,3 +221,6 @@ stream = ExtResource("18_6hht6")
 volume_db = -20.0
 pitch_scale = 0.65
 bus = &"Jingles"
+
+[editable path="Paddles/PaddlePcOne"]
+[editable path="Paddles/PaddleAi"]

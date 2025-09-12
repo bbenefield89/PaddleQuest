@@ -22,7 +22,7 @@ public partial class PauseMenu : PanelContainer
     {
         base._Process(delta);
 
-        if (Input.IsActionJustPressed(InputActionsContants.PauseGame))
+        if (Input.IsActionJustPressed(InputActions.PauseGame))
             TogglePauseMenu();
     }
 

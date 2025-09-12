@@ -1,6 +1,6 @@
 namespace PongCSharp.Constants;
 
-public static class InputActionsContants
+public static class InputActions
 {
     // Misc Actions
     public const string PauseGame = "ui_cancel";

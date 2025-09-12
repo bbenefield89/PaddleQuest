@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://clntbrnvr4mdl"]
+
+[ext_resource type="PackedScene" uid="uid://cu852kkosrq0n" path="res://Prefabs/Game/PaddleBase.tscn" id="1_2dgsr"]
+[ext_resource type="Script" uid="uid://b3asvib44ine1" path="res://Prefabs/Game/PaddlePc.cs" id="2_kwydv"]
+
+[node name="PaddlePc" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("1_2dgsr")]
+script = ExtResource("2_kwydv")
+_collisionShape = NodePath("CollisionShape2D")
