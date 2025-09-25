@@ -1,11 +1,9 @@
 using Godot;
 using PongCSharp.Autoloads;
 using PongCSharp.Enums;
-using PongCSharp.Game;
 using PongCSharp.Game.Ball;
 using PongCSharp.Game.Scoreboard;
 using PongCSharp.Game.VictoryAchievedMenu;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -68,7 +66,7 @@ public partial class Game : Node2D
     )
         => _scoreboard!.UpdateScores(goalSideToScore);
 
-    public void MatchTypeHandler_OnVictoryConditionAchieved(GoalSide winningGoalSide)
+    private void MatchTypeHandler_OnVictoryConditionAchieved(GoalSide winningGoalSide)
         => _victoryAchievedMenu!.Show(winningGoalSide);
 
     // Validation

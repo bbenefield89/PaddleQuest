@@ -1,21 +1,22 @@
 using Godot;
-using PongCSharp.Enums;
 using PongCSharp.Autoloads;
+using PongCSharp.Domain.GameStateHandlers;
+using PongCSharp.Enums;
 using PongCSharp.GameStateHandlers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace PongCSharp.Autoloads;
+namespace PongCSharp.Prefabs.Autoloads;
 
 public partial class GameStateManager : Node
 {
     // Fields
-    public IGameStateHandler? CurrentGameState { get; private set; }
-
-    private ReadOnlyDictionary<GameState, IGameStateHandler>? _gameStates;
+    private ReadOnlyDictionary<GameState, IGameStateHandler>? _gameStates;    
 
     // Properties
+    public IGameStateHandler? CurrentGameState { get; private set; }
+
     public static GameStateManager? Instance { get; private set; }
 
     // Lifecycle Methods
@@ -43,8 +44,7 @@ public partial class GameStateManager : Node
     {
         CurrentGameState?.Exit();
 
-        IGameStateHandler? nextGameStateHandler;
-        if (_gameStates is null || !_gameStates.TryGetValue(gameState, out nextGameStateHandler))
+        if (_gameStates is null || !_gameStates.TryGetValue(gameState, out var nextGameStateHandler))
         {
             Debugger.Break();
             return;
@@ -57,32 +57,32 @@ public partial class GameStateManager : Node
     // Setup Methods
     private void InitializeGameStates()
     {
-        var gameStates = new Dictionary<GameState, IGameStateHandler>()
+        var gameStates = new Dictionary<GameState, IGameStateHandler>
         {
             [GameState.MainMenu] = new MainMenuGameStateHandler(),
             [GameState.Playing] = new PlayingGameStateHandler(),
-            [GameState.Paused] = new PausedGameStateHandler(GetTree())
+            [GameState.Paused] = new PausedGameStateHandler()
         };
 
         _gameStates = gameStates.AsReadOnly();
     }
 
-    private void Subscribe()
+    private static void Subscribe()
     {
         GlobalEventBus.Instance?.GameStarted += GlobalEventBus_GameStarted;
         GlobalEventBus.Instance?.GameReset += GlobalEventBus_GameReset;
     }
 
-    private void Unsubscribe()
+    private static void Unsubscribe()
     {
         GlobalEventBus.Instance?.GameStarted -= GlobalEventBus_GameStarted;
         GlobalEventBus.Instance?.GameReset -= GlobalEventBus_GameReset;
     }
 
     // Event Handlers
-    private void GlobalEventBus_GameStarted()
+    private static void GlobalEventBus_GameStarted()
         => Instance?.ChangeState(GameState.Playing);
 
-    private void GlobalEventBus_GameReset()
+    private static void GlobalEventBus_GameReset()
         => Instance?.ChangeState(GameState.Playing);
 }

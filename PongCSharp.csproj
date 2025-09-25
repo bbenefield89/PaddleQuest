@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.4.1">
+<Project Sdk="Godot.NET.Sdk/4.5.0">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -11,6 +11,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
+    <Content Remove="..\..\..\..\..\.nuget\packages\gdunit4.analyzers\1.0.0\contentFiles\any\netstandard2.0\LICENSE" />
+    <Content Remove="..\..\..\..\..\.nuget\packages\gdunit4.api\5.0.0\contentFiles\any\net8.0\LICENSE" />
   </ItemGroup>
   <ItemGroup>
     <None Include="docs\SmokeTestCheckList.md" />
