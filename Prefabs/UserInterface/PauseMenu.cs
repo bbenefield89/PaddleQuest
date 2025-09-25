@@ -1,9 +1,9 @@
 using Godot;
-using PongCSharp.Autoloads;
 using PongCSharp.Constants;
 using PongCSharp.Enums;
+using GameStateManager = PongCSharp.Prefabs.Autoloads.GameStateManager;
 
-namespace PongCSharp.Game;
+namespace PongCSharp.Prefabs.UserInterface;
 
 public partial class PauseMenu : PanelContainer
 {

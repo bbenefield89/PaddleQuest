@@ -3,6 +3,7 @@ using PongCSharp.Enums;
 using PongCSharp.Models;
 using System.Collections.Generic;
 using System.Linq;
+using GameStateManager = PongCSharp.Prefabs.Autoloads.GameStateManager;
 
 namespace PongCSharp.Game.Managers;
 

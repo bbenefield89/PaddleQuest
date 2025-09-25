@@ -1,5 +1,6 @@
 using PongCSharp.Autoloads;
 using PongCSharp.Enums;
+using GameStateManager = PongCSharp.Prefabs.Autoloads.GameStateManager;
 
 namespace PongCSharp.UserInterface;
 

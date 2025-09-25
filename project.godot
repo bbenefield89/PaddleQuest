@@ -13,7 +13,7 @@ config_version=5
 config/name="PongCSharp"
 config/tags=PackedStringArray("c#", "cs")
 run/main_scene="uid://dcgqxcyfk2g7k"
-config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
+config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="res://Assets/Sprites/icon.svg"
 
 [audio]
@@ -27,6 +27,10 @@ GameStateManager="*res://Prefabs/Autoloads/GameStateManager.cs"
 GlobalEventBus="*res://Prefabs/Autoloads/GlobalEventBus.cs"
 MatchTypeManager="*res://Prefabs/Autoloads/MatchTypeManager.cs"
 BgMusicPlayer="*res://Prefabs/Autoloads/BgMusicPlayer.tscn"
+
+[display]
+
+mouse_cursor/custom_image="uid://x36jn3mu2lvg"
 
 [dotnet]
 
